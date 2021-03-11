@@ -1,0 +1,100 @@
+{{>layout/header}}
+<!-- payment start -->
+<div class="content-area pb-5 pt-3">
+    <div class="container mt-5 content-body">
+        <form>
+            <p class="reservation-title bg-warning rounded">예약</p>
+            <h4 class="text-sidebar mb-4 font-weight-bold">선택 옵션</h4>
+            <div class="info-div rounded">
+                <div class="row">
+                    <div class="col pr-0">
+                        <img src="/img/recordroom.png" width="300" height="200" alt="">
+                    </div>
+                    <div class="col pl-1 info-p-div">
+                        <p class="info-p pl-4 pb-2">선셋밸리 레코드 스튜디오<span class="pl-4"><i class="fa fa-star"></i> 4.3/5.0</span></p>
+                        <p><span class="text-info pr-5">유형</span><span>평일</span><span>종일권(10:00-20:00)</span></p>
+                        <p><span class="text-info pr-3">예약 날짜</span><span>2020년 10월 19일 월요일</span></p>
+                        <p><span class="text-info pr-5">인원 수</span><span>1명</span></p>
+                    </div>
+                </div>
+            </div>
+
+            <h4 class="text-sidebar mb-4 mt-5 font-weight-bold">요금 세부 정보</h4>
+            <div class="info-div rounded">
+                <table class="table bill-table table-borderless">
+                    <tbody>
+                    <tr>
+                        <th scope="row" class="text-info">선택 유형</th>
+                        <td>평일 종일권 (10:00-20:00)</td>
+                        <td>+ 70000원 (7000원 x 10)</td>
+                    </tr>
+                    <tr>
+                        <th scope="row" class="text-info">예약 날짜</th>
+                        <td>2020년 10월 19일 월요일</td>
+                        <td>+ 0원</td>
+                    </tr>
+                    <tr>
+                        <th scope="row" class="text-info">주중/주말</th>
+                        <td>주중</td>
+                        <td>+ 0원</td>
+                    </tr>
+                    <tr>
+                        <th scope="row" class="text-info">인원수</th>
+                        <td>1명</td>
+                        <td>+ 0원</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                    </tr>
+                    <tr class="bill-table-last-row">
+                        <th scope="row" class="text-info">Totla Price</th>
+                        <td colspan="2" class="text-center font-weight-bold pr-5">35000원</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h4 class="text-sidebar mb-4 mt-5 font-weight-bold">예약자 정보</h4>
+            <div class="info-div rounded">
+                <div class="font-weight-bold text-info pl-4 pt-1 pb-1">
+                    <div class="form-group row">
+                        <label for="reservation-user" class="col-form-label pr-3">예약자이름</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control-plaintext rounded" id="reservation-user" value="홍길동">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="reservation-email" class="col-form-label pr-5">이메일</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control-plaintext rounded" id="reservation-email" value="email@example.com">
+                        </div>
+                        <small id="emailHelp" class="form-text text-muted pt-2">결제 완료시 해당 이메일로 예약확정 안내 메일이 발송됩니다</small>
+                    </div>
+                    <div class="form-group row">
+                        <label for="reservation-phone" class="col-form-label pr-3">핸드폰번호</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control-plaintext rounded" id="reservation-phone" placeholder="010-1234-5678">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="service-agree">
+                <div class="form-check mt-5">
+                    <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
+                    <label class="form-check-label" for="defaultCheck1">
+                        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                    </label>
+                </div>
+                <div class="form-check mt-3">
+                    <input class="form-check-input" type="checkbox" value="" id="defaultCheck2">
+                    <label class="form-check-label" for="defaultCheck2">
+                        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                    </label>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-dark mt-5 payment-btn">결제하기</button>
+        </form>
+    </div>
+</div>
+<!-- payment end -->
+{{>layout/footer}}

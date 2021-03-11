@@ -1,0 +1,13 @@
+{{>layout/header}}
+<div class="content-area pb-5 pt-3">
+    <div class="container mt-5 mb-5">
+        <p class="bg-danger rounded pl-5 pt-3 pb-3 font-weight-bold h4 text-light">{{user.name}} (계정 인증 미완료)</p>
+        <div class="bg-white rounded mt-4 mypage-email-div">
+            <span class="font-weight-bold">인증번호</span>
+            <input type="text" name="" value="" class="rounded ml-4 p-1" id="verification_code">
+            <input type="hidden" value="{{user.email}}" id="userEmail">
+            <span><button type="button" name="button" class="pt-1 pb-1 pl-3 pr-3 ml-3 btn btn-danger" id="btn-email-key">계정 인증</button> </span>
+        </div>
+    </div>
+</div>
+{{>layout/footer}}

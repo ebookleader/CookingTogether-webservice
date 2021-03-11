@@ -1,0 +1,50 @@
+{{>layout/header}}
+<div class="content-area pb-5 pt-3">
+    <div class="container mt-5 mb-5">
+        {{#user}}
+            {{#emailVerified}}
+                <p class="bg-warning rounded pl-5 pt-3 pb-3 font-weight-bold h4 text-light">{{name}}</p>
+                <div class="row mt-4">
+                    <div class="col bg-white rounded ml-3 mr-2">
+                        <ul class="mypage-reservation-list mt-4 pt-3 mb-5">
+                            <li><a href="#">예약 정보</a></li>
+                            <li><a href="#">예약 리스트</a></li>
+                            <li><a href="#">후기 관리</a></li>
+                            <li><a href="#">즐겨찾기</a></li>
+                        </ul>
+                    </div>
+                    <div class="col bg-white rounded mr-3 ml-2">
+                        <ul class="mypage-info-list">
+                            <li class="mt-4"><span class="">계정 정보</span></li>
+                            <li><span class="mr-3">이름</span><input type="text" name="" value="{{name}}" readonly
+                                                                   class="rounded ml-4 p-1"></li>
+                            <div id="email_verify_div">
+                                <li class="row ml-0">
+                                    <span>이메일</span>
+                                    <input type="email" name="" value="{{email}}" class="rounded ml-4 p-1"
+                                           id="userEmail">
+                                    <span><button type="button" name="button"
+                                                  class="email-change-btn pt-1 pb-1 pl-3 pr-3 ml-3 btn btn-warning">저장</button> </span>
+                                </li>
+                            </div>
+                            <li><span>비밀번호</span><a href="#" class="text-center ml-5 pl-4-">변경</a></li>
+                            <li><a href="#">회원 탈퇴</a></li>
+                        </ul>
+                    </div>
+                </div>
+            {{/emailVerified}}
+            {{^emailVerified}}
+                <p class="bg-danger rounded pl-5 pt-3 pb-3 font-weight-bold h4 text-light">{{name}} (계정 인증 필요)</p>
+                <div class="bg-white rounded mt-4 mypage-email-div">
+                    <span class="font-weight-bold">이메일</span>
+                    <input type="email" name="" value="{{email}}" class="rounded ml-4 p-1" readonly id="userEmail">
+                    <span><button type="button" name="button" class="pt-1 pb-1 pl-3 pr-3 ml-3 btn btn-danger"
+                                  id="btn-email-verify">인증번호 받기</button> </span>
+                    <p class="font-weight-bold text-secondary mt-3">가입하신 이메일로 인증번호가 발송됩니다.</p>
+                    <p class="font-weight-bold text-secondary mt-3">이메일 발송까지 시간이 소요되므로 현재 창을 닫지 말아주시기 바랍니다.</p>
+                </div>
+            {{/emailVerified}}
+        {{/user}}
+    </div>
+</div>
+{{>layout/footer}}

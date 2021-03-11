@@ -1,0 +1,572 @@
+.content-area {
+  background-color: #F4F5F7;
+}
+
+.jumbotron{
+    background-image: url('/img/mainPic2.jpg');
+    background-size: cover;
+    height: 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+#search-area {
+  width: 97%;
+  padding-top: 2.5em;
+  padding-bottom: 2.5em;
+  padding-left: 2em;
+  margin-right: 5%;
+}
+
+#category-dropdown {
+  height: 3.2em;
+  width: 260px;
+}
+
+#location-dropdown {
+  height: 3.2em;
+  width: 500px;
+}
+
+#mainpage-search-button {
+  height: 3.2em;
+  width: 200px;
+}
+
+#category-dropdown-list  {
+  width: 92%;
+}
+
+#location-dropdown-list {
+  width: 95%;
+}
+
+#location-link {
+  text-align: center;
+  width: 85%;
+}
+
+#location-link1:hover {
+  color: #EF6C00;
+}
+
+#location-link2:hover {
+  color: red;
+}
+
+#category-list {
+  padding-left: 2.5em;
+  padding-top: 1em;
+}
+
+#category-list:nth-child(3n+3) {
+  padding-bottom: 1.5em;
+}
+
+#category-list > a, #location-list tbody tr td a {
+  color: black;
+  text-decoration: none;
+}
+
+#category-list > a:hover, #location-list tbody tr td a:hover {
+  color: #EF6C00;
+}
+
+#category-list > a:nth-child(2n+1) {
+  padding-right: 3.5em;
+}
+
+#location-list td {
+  text-align: center;
+}
+
+
+input {
+  text-align: center;
+}
+
+.card {
+  width: 15rem;
+  margin-right: 2em;
+  display: inline-block;
+}
+
+#popular-space {
+  font-weight: bold;
+  font-size: 2.5em;
+  display: inline-block;
+}
+
+#popular-space-btn {
+  width: 100%;
+  font-weight: 600;
+  margin-left: 20%;
+}
+
+.btn-link, .btn-link:hover{
+  color: black;
+}
+
+/* login */
+#login-form, #enroll-complete-div {
+  background-color: white;
+  width: 55%;
+  border-radius: 10%;
+}
+#btn-login, #btn-signup {
+  width: 100%;
+}
+
+.btn-naver {
+  background-color: #00CE36;
+  color: white;
+  font-weight: 500;
+  border: none;
+  width: 88%;
+  font-size: larger;
+  padding-top: 8px;
+  text-align: center;
+}
+
+.btn-naver:focus, .btn-google:focus {
+  outline: none;
+  box-shadow: none;
+}
+
+.btn-naver:hover {
+  background-color: #00C433;
+  text-decoration: none;
+  color: white;
+}
+
+.btn-google {
+  background-color: #DC4A37;
+  color: white;
+  font-weight: 500;
+  border: none;
+  width: 88%;
+  text-align: center;
+  font-size: larger;
+  padding-top: 8px;
+}
+
+.btn-google:hover {
+  background-color: #D93C27;
+  text-decoration: none;
+  color: white;
+}
+
+/* signup */
+#signup-form {
+  background-color: white;
+  width: 45%;
+  border-radius: 10%;
+}
+
+/* space list */
+#list-search-area {
+
+}
+
+#viewAllBtn {
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 18px;
+    text-align: center;
+}
+
+.btn-light {
+  border: 1px solid black;
+}
+
+.btn-light:hover {
+  background-color: white;
+  border: 2px solid black;
+}
+
+.search-nav {
+  padding: 1em;
+}
+
+.search-nav > h5 {
+  text-align: center;
+  border-bottom: 2px solid #d4d4d4;
+  padding-bottom: 10px;
+}
+
+.search-nav > a {
+  color: black;
+}
+
+.search-nav > a:hover {
+  color: orange;
+}
+
+.product_grid {
+  border-radius: 5%;
+}
+
+.product_img {
+  border-top-left-radius: 5%;
+  border-bottom-left-radius: 5%;
+}
+
+.product-last-line {
+  padding-top: 2em;
+}
+
+#product-title {
+  color:black;
+}
+
+.content-info {
+  margin-top: -3em;
+  padding-top: 4em;
+  padding-bottom: 4em;
+  background-color: #574401;
+  padding-left: 13em;
+}
+
+#product-list-title-h1, #product-list-title-p {
+  color: white;
+  letter-spacing: 1px;
+}
+
+#product-list-title-p {
+  font-size: 23px;
+}
+
+/* space detail */
+.content-body {
+  background-color: white;
+  border-radius: 1%;
+  padding-bottom: 5em;
+  padding-top: 3em;
+  padding-left: 3em;
+  padding-right: 3em;
+}
+
+.carousel {
+  width: 100%;
+  height: auto;
+}
+
+.reservation-nav {
+  border: 1px solid gray;
+  border-radius: 3%;
+}
+
+.reservation-p {
+  font-weight: bold;
+  font-size: 20px;
+}
+
+.text-sidebar {
+  border-left: 5px solid #FFCC00;
+  padding-left: 10px;
+}
+
+.inform-list > li{
+  padding-bottom: 10px;
+}
+
+.review-image {
+  width: 6em;
+}
+
+.fa-star, .fa-star-o {
+  color: #FFCC00;
+  padding-right: 3px;
+}
+
+.review-star {
+  padding-right: 4em;
+}
+
+.anchor-nav {
+  background-color: #FFCC00;
+  width: 80%;
+  margin-top: 2em;
+  margin-bottom: 2em;
+}
+
+.anchor-nav > li > a {
+  color: black;
+  font-weight: bold;
+}
+
+.anchor-nav > li > a:hover {
+  color: white;
+}
+
+.select-room {
+  height: auto;
+}
+
+.price-info {
+  margin-top: 1em;
+  background-color: #EAEAEA;
+  padding: 1em;
+  height: 17%;
+}
+
+.price-span-first {
+  font-weight: bold;
+  margin-right: 2em;
+  font-size: 1.2em;
+}
+
+.price-span-second {
+  text-align: right;
+  font-weight: bold;
+  font-size: 1.2em;
+  color: #0066CC;
+}
+
+.question, .answer {
+  padding-left: 6em;
+  padding-right: 5em;
+}
+
+.answer-div {
+  margin-left: 6em;
+  margin-right: 5em;
+  width: 80%;
+}
+
+.answer > a {
+  color: #9999FF;
+  font-weight: bold;
+}
+
+.answer > a:hover {
+  text-decoration: none;
+
+}
+
+/* payment */
+.reservation-title {
+  width: 15%;
+  text-align: center;
+  font-weight: bold;
+  font-size: 1.8em;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  margin-bottom: 1.5em;
+}
+
+.info-div {
+  border: 1px solid black;
+  width: 70%;
+  padding: 1em;
+}
+
+.info-p-div {
+  font-weight: 600;
+  padding-top: 1em;
+}
+
+.info-p {
+  border-bottom: 2px solid gray;
+}
+
+.info-div div div div input {
+  border: 1px solid black;
+  width: 50%;
+}
+
+.bill-table tbody tr td {
+  font-weight: 500;
+}
+
+.bill-table tbody tr th{
+  width: 20%;
+}
+
+.bill-table-last-row {
+  background-color: #cfd1d4;
+}
+
+.payment-btn {
+  font-size: 1.3em;
+  padding: 0.5em 1em 0.5em 1em;
+}
+
+/* mypage home */
+
+.mypage-reservation-list, .mypage-info-list {
+  list-style: none;
+}
+
+.mypage-reservation-list li, .mypage-info-list li {
+  margin-bottom: 1em;
+}
+
+.mypage-reservation-list li a, .mypage-reservation-list li span, .mypage-info-list li span {
+  color: black;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.mypage-info-list li a {
+  color: gray;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.mypage-reservation-list li a:hover, .mypage-info-list li a:hover {
+  text-decoration: none;
+  color: #FF9900;
+}
+
+.email-change-btn {
+  border: none;
+  font-weight: 600;
+}
+
+.mypage-email-div {
+  padding-top: 5em;
+  padding-bottom: 3em;
+  text-align: center;
+}
+
+/* before change password */
+.beforePassword-div {
+  padding-top: 5em;
+}
+
+.beforePasswordBtn-div, .passwordBtn-div {
+  padding-bottom: 5em;
+}
+
+.beforePassword-label {
+  font-weight: 600;
+  font-size: 1.2em;
+  padding-right: 1.5em;
+}
+
+/* change password */
+.changePassword-div label {
+  font-weight: 600;
+  font-size: 1.1em;
+}
+
+/* delete account */
+.delete-info {
+  margin-top: 2em;
+  margin-left: 6em;
+  margin-right: 6em;
+  margin-bottom: 5em;
+}
+
+/* liked list */
+.liked-list-start {
+  margin-left: 10em;
+  margin-right: 10em;
+}
+
+.liked-list-start p {
+  font-weight: 600;
+  font-size: 1.8em;
+  padding-left: 2em;
+  color: white;
+  padding-top: 0.4em;
+  padding-bottom: 0.4em;
+}
+
+/* reservation list now */
+.reservation-list-div {
+  margin: 2em;
+  padding-top: 1em;
+  padding-bottom: 1em;
+  background-color: #F2F2F2;
+}
+
+.reservation-img {
+  padding-right: 0;
+}
+
+.reservation-info {
+  font-weight: 600;
+  margin-right: 10em;
+}
+
+.reservation-info p a:hover {
+  text-decoration: none;
+}
+
+/* writeReview */
+.rating-div {
+  margin-left: 6em;
+  margin-right: 2em;
+  vertical-align: middle;
+  padding-left: 2em;
+  border: 1px solid gray;
+}
+
+.rating-p {
+  font-weight: 600;
+  font-size: 1.1em;
+  margin-top: 0.5em;
+  margin-bottom: 10px;
+  color: #5F5F5F;
+}
+
+.reiewTextarea {
+  border: 1px solid gray;
+  padding: 1em;
+}
+
+textarea {
+   resize: none;
+}
+
+/* my review */
+.my-review-table {
+ border: 1px solid gray;
+ margin-left: 2em;
+ margin-right: 2em;
+ padding: 1em;
+}
+
+/* delete review */
+.reviewDeleteForm {
+  margin-left: 20em;
+  margin-bottom: 2em;
+}
+
+label {
+    font-weight: bold;
+}
+
+/* enroll seller complete*/
+#seller_comment {
+  border-left: 10px solid green;
+  margin-right: 10px;
+}
+
+/* error page */
+.error-title {
+  font-weight: bold;
+  font-size: 10em;
+  text-align: center;
+  letter-spacing: 5px;
+  color: #ff1f53;
+  margin-bottom: 0;
+}
+
+.error-sub {
+  text-align: center;
+  font-size: 1.5em;
+  font-weight: bold;
+  color: #525252;
+}
+
+#error_comment {
+  border-left: 10px solid #ff1f53;
+  margin-right: 10px;
+}
+
+.error-logo:hover {
+  text-decoration: none;
+}

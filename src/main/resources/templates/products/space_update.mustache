@@ -1,0 +1,111 @@
+{{>layout/header}}
+<div class="content-area pb-5 pt-3">
+    <div class="container mt-5 content-body">
+        <h3 class="pb-4">상품 수정</h3>
+        <div class="product-save-form">
+            <form class="" onsubmit="return formValidate();">
+                <input type="hidden" id="p_id" value="{{product.p_id}}">
+                <div class="form-group">
+                    <label for="p_name">게시글 제목 <span class="text-danger title-count ml-1">(0 / 최대 100자)</span></label>
+                    <input type="text" class="form-control" id="p_name" placeholder="게시글 제목을 입력하세요" value="{{product.p_name}}" maxlength="100">
+                </div>
+                <div class="form-group">
+                    <label for="p_category">카테고리</label>
+                    <select class="form-control" id="p_category">
+                        <option>악기</option>
+                        <option>노래/녹음</option>
+                        <option>댄스</option>
+                        <option>뮤지컬</option>
+                        <option>쿠킹</option>
+                        <option>스터디</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="p_city">도시</label>
+                    <select class="form-control" id="p_city">
+                        <option>서울특별시</option>
+                        <option>인천광역시</option>
+                        <option>대전광역시</option>
+                        <option>대구광역시</option>
+                        <option>부산광역시</option>
+                        <option>광주광역시</option>
+                        <option>울산광역시</option>
+                        <option>세종특별자치도</option>
+                        <option>경기도</option>
+                        <option>강원도</option>
+                        <option>충청북도</option>
+                        <option>충청남도</option>
+                        <option>전라북도</option>
+                        <option>전라남도</option>
+                        <option>경상북도</option>
+                        <option>경상남도</option>
+                        <option>제주도</option>
+                        <option></option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="p_location">장소 위치</label>
+                    <input type="text" class="form-control" id="p_location" placeholder="위치를 입력하세요" value="{{product.p_location}}">
+                </div>
+                <div class="form-group">
+                    <label for="p_introduce">장소 소개<span class="text-danger introduce-count ml-1">(0 / 최대 500자)</span></label>
+                    <textarea class="form-control" id="p_introduce" placeholder="장소 소개를 입력하세요" rows="5" maxlength="500">{{product.p_introduce}}</textarea>
+                </div>
+                <div class="form-group">
+                    <label for="p_weekdayPrice">평일 가격 / 시간</label>
+                    <input type="number" class="form-control" id="p_weekdayPrice" placeholder="평일 가격 (/시간)을 입력하세요" value="{{product.p_weekdayPrice}}">
+                </div>
+                <div class="form-group">
+                    <label for="p_weekendPrice">주말 가격 / 시간</label>
+                    <input type="number" class="form-control" id="p_weekendPrice" placeholder="주말 가격 (/시간)을 입력하세요" value="{{product.p_weekendPrice}}">
+                </div>
+                <div class="form-group">
+                    <label for="p_facility">시설 (최대 10개 추가 가능)<a href="#aa" class="facility_add_btn ml-3"><i class="fa fa-plus"></i></a></label>
+                    <div class="form-inline">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="facility-1">1</span>
+                        </div>
+                        <input type="text" class="form-control" id="p_facility1" name="facility">
+                    </div>
+                    <div class="facility_append">
+
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="p_notice">유의사항 (최대 10개 추가 가능)<a href="#ab" class="notice_add_btn ml-3"><i class="fa fa-plus"></i></a></label>
+                    <div class="form-inline">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="notice-1">1</span>
+                        </div>
+                        <input type="text" class="form-control" id="p_notice1" name="notice">
+                    </div>
+                    <div class="notice_append">
+
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="p_policy">정책 (최대 10개 추가 가능)<a href="#ab" class="policy_add_btn ml-3"><i class="fa fa-plus"></i></a></label>
+                    <div class="form-inline">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="policy-1">1</span>
+                        </div>
+                        <input type="text" class="form-control" id="p_policy1" name="policy">
+                    </div>
+                    <div class="policy_append">
+
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="p_maxNum">최대 인원 수</label>
+                    <input type="number" class="form-control" id="p_maxNum" placeholder="최대 인원 수를 입력하세요" value="{{product.p_maxNum}}">
+                </div>
+
+                <a href="/" role="button" class="btn btn-secondary">취소</a>
+                <button type="button" class="btn btn-primary" id="btn-space-update">수정</button>
+            </form>
+
+        </div>
+
+    </div>
+</div>
+{{>layout/footer}}

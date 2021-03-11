@@ -1,0 +1,155 @@
+{{>layout/header}}
+
+<!-- navbar start-->
+
+
+<div class="jumbotron">
+    <div class="container pt-5 mt-5">
+        <p class="h5 text-white">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+        <br>
+        <!-- search area -->
+        <div class="container bg-gradient-light text-dark form-inline rounded mt-3" id="search-area">
+            <!-- location search -->
+            <div class="dropdown pr-4">
+                <button class="btn btn-light dropdown-toggle pl-5 pr-5" data-flip="false" type="button" id="location-dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-geo-alt mr-2" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" d="M12.166 8.94C12.696 7.867 13 6.862 13 6A5 5 0 0 0 3 6c0 .862.305 1.867.834 2.94.524 1.062 1.234 2.12 1.96 3.07A31.481 31.481 0 0 0 8 14.58l.208-.22a31.493 31.493 0 0 0 1.998-2.35c.726-.95 1.436-2.008 1.96-3.07zM8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10z"/>
+                        <path fill-rule="evenodd" d="M8 8a2 2 0 1 0 0-4 2 2 0 0 0 0 4zm0 1a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
+                    </svg>
+                    Search Location
+                </button>
+                <div class="dropdown-menu" aria-labelledby="location-dropdown" id="location-dropdown-list">
+                    <table class="table" id="location-list">
+                        <tbody>
+                        <tr>
+                            <td><a href="#" id="seoul">서울특별시</a></td>
+                            <td><a href="#" id="incheon">인천광역시</a></td>
+                            <td><a href="#" id="daegu">대구광역시</a></td>
+                            <td><a href="#" id="daegeon">대전광역시</a></td>
+                        </tr>
+                        <tr>
+                            <td><a href="#" id="busan">부산광역시</a></td>
+                            <td><a href="#" id="gwangju">광주광역시</a></td>
+                            <td><a href="#" id="ulsan">울산광역시</a></td>
+                            <td><a href="#" id="saejong">세종특별자치도</a></td>
+                        </tr>
+                        <tr>
+                            <td><a href="#" id="gyeonggi">경기도</a></td>
+                            <td><a href="#" id="gangwon">강원도</a></td>
+                            <td><a href="#" id="chungn">충청북도</a></td>
+                            <td><a href="#" id="chungs">충청남도</a></td>
+                        </tr>
+                        <tr>
+                            <td><a href="#" id="junn">전라북도</a></td>
+                            <td><a href="#" id="juns">전라남도</a></td>
+                            <td><a href="#" id="gyeongn">경상북도</a></td>
+                            <td><a href="#" id="gyeongs">경상남도</a></td>
+                        </tr>
+                        <tr>
+                            <td><a href="#" id="jeju">제주특별자치도</a></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <!-- category search -->
+            <div class="dropdown pr-4">
+                <button class="btn btn-light dropdown-toggle pl-5 pr-5" type="button" id="category-dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-tag mr-2" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" d="M2 2v4.586l7 7L13.586 9l-7-7H2zM1 2a1 1 0 0 1 1-1h4.586a1 1 0 0 1 .707.293l7 7a1 1 0 0 1 0 1.414l-4.586 4.586a1 1 0 0 1-1.414 0l-7-7A1 1 0 0 1 1 6.586V2z"/>
+                        <path fill-rule="evenodd" d="M4.5 5a.5.5 0 1 0 0-1 .5.5 0 0 0 0 1zm0 1a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3z"/>
+                    </svg>
+                    Search Category
+                </button>
+                <div class="dropdown-menu" aria-labelledby="category-dropdown" id="category-dropdown-list">
+                    <div class="form-inline" id="category-list">
+                        <a href="#" id="category-instrument">악기</a>
+                        <a href="#" id="category-sing">노래/녹음</a>
+                    </div>
+                    <div class="form-inline"  id="category-list">
+                        <a href="#" id="category-dance">댄스</a>
+                        <a href="#" id="category-musical">뮤지컬</a>
+                    </div>
+                    <div class="form-inline"  id="category-list">
+                        <a href="#" id="category-cooking">쿠킹</a>
+                        <a href="#" id="category-study">스터디</a>
+                    </div>
+                </div>
+            </div>
+            <!-- total search button -->
+            <button type="button" class="btn btn-dark" id="mainpage-search-button">Search</button>
+        </div>
+    </div>
+</div>
+
+<!-- popular spot -->
+<br><br>
+<div class="container">
+    <p id="popular-space">Popular Space</p>
+    <div class="text-right" id="popular-space">
+        <a href="/space/list" role="button" class="btn btn-warning">View All Space</a>
+    </div>
+    <div class="form-inline">
+        <div class="card">
+            <img src="/img/example.png" class="card-img-top" alt="...">
+            <div class="card-body">
+                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+            </div>
+        </div>
+        <div class="card">
+            <img src="/img/example.png" class="card-img-top" alt="...">
+            <div class="card-body">
+                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+            </div>
+        </div>
+        <div class="card">
+            <img src="/img/example.png" class="card-img-top" alt="...">
+            <div class="card-body">
+                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+            </div>
+        </div>
+        <div class="card">
+            <img src="/img/example.png" class="card-img-top" alt="...">
+            <div class="card-body">
+                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- recently published -->
+<br><br><br>
+<div class="container">
+    <p id="popular-space">Recently Published</p>
+    <div class="text-right" id="popular-space">
+        <a href="/space/list" role="button" class="btn btn-warning">View All Space</a>
+    </div>
+    <div class="form-inline">
+        <div class="card">
+            <img src="/img/example.png" class="card-img-top" alt="...">
+            <div class="card-body">
+                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+            </div>
+        </div>
+        <div class="card">
+            <img src="/img/example.png" class="card-img-top" alt="...">
+            <div class="card-body">
+                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+            </div>
+        </div>
+        <div class="card">
+            <img src="/img/example.png" class="card-img-top" alt="...">
+            <div class="card-body">
+                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+            </div>
+        </div>
+        <div class="card">
+            <img src="/img/example.png" class="card-img-top" alt="...">
+            <div class="card-body">
+                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+            </div>
+        </div>
+    </div>
+</div>
+<br><br><br><br>
+{{>layout/footer}}

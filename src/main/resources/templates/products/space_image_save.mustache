@@ -1,0 +1,33 @@
+{{>layout/header}}
+<div class="content-area pb-5 pt-3">
+    <div class="container mt-5 content-body">
+        <h3 class="pb-4">상품 이미지 등록</h3>
+        <div class="container">
+            <form>
+                <table class="table">
+                    <tbody>
+                    <tr>
+                        <th><span class="font-weight-bold">대표 사진</span></th>
+                        <th><input type="file" id="img"></th>
+                    </tr>
+                    <tr>
+                        <th><span class="font-weight-bold">사진1</span></th>
+                        <th><input type="file" name="files"></th>
+                    </tr>
+                    <tr>
+                        <th><span class="font-weight-bold">사진2</span></th>
+                        <th><input type="file" name="files"></th>
+                    </tr>
+                    </tbody>
+                </table>
+                <button type="button" class="btn btn-dark" id="btn-image-save">업로드</button>
+            </form>
+            <div class="">
+                <p><strong>사진 미리보기</strong></p>
+                <img src="" id="result-image">
+            </div>
+            <a href="/" role="button" class="btn btn-primary">완료</a>
+        </div>
+    </div>
+</div>
+{{>layout/footer}}

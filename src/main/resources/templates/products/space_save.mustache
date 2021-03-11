@@ -1,0 +1,347 @@
+{{>layout/header}}
+<div class="content-area pb-5 pt-3">
+    <div class="container mt-5 content-body">
+        <h3 class="pb-4">상품 등록</h3>
+        <div class="product-save-form">
+            <form class="" onsubmit="return formValidate();">
+                <div class="form-group">
+                    <label for="p_name">게시글 제목 <span class="text-danger title-count ml-1">(0 / 최대 100자)</span></label>
+                    <input type="text" class="form-control" id="p_name" placeholder="게시글 제목을 입력하세요" maxlength="100">
+                </div>
+                <div class="form-group">
+                    <label for="p_category">카테고리</label>
+                    <select class="form-control" id="p_category">
+                        <option>악기</option>
+                        <option>녹음</option>
+                        <option>댄스</option>
+                        <option>뮤지컬</option>
+                        <option>쿠킹</option>
+                        <option>스터디</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="p_city">도시</label>
+                    <select class="form-control" id="p_city">
+                        <option>서울특별시</option>
+                        <option>인천광역시</option>
+                        <option>대전광역시</option>
+                        <option>대구광역시</option>
+                        <option>부산광역시</option>
+                        <option>광주광역시</option>
+                        <option>울산광역시</option>
+                        <option>세종특별자치도</option>
+                        <option>경기도</option>
+                        <option>강원도</option>
+                        <option>충청북도</option>
+                        <option>충청남도</option>
+                        <option>전라북도</option>
+                        <option>전라남도</option>
+                        <option>경상북도</option>
+                        <option>경상남도</option>
+                        <option>제주도</option>
+                        <option></option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <p class="font-weight-bold">주소</p>
+                    <div class="form-row">
+                        <div class="col">
+                            <input type="text" class="form-control" id="sample6_postcode" placeholder="우편번호">
+                        </div>
+                        <div class="col">
+                            <input type="button" class="btn btn-primary" onclick="sample6_execDaumPostcode()" value="우편번호 찾기">
+                        </div>
+                    </div>
+                    <div class="form-row mt-4">
+                        <div class="col">
+                            <input type="text" class="form-control" id="sample6_address" placeholder="주소">
+                        </div>
+                        <div class="col">
+                            <input type="text" class="form-control" id="sample6_detailAddress" placeholder="상세주소">
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="p_introduce">소개<span class="text-danger introduce-count ml-1">(0 / 최대 500자)</span></label>
+                    <textarea class="form-control" id="p_introduce" placeholder="장소 소개를 입력하세요" rows="5" maxlength="500"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="p_weekdayPrice">평일 가격 / 시간</label>
+                    <input type="number" class="form-control" id="p_weekdayPrice" placeholder="평일 가격 (/시간)을 입력하세요" step="10">
+                </div>
+                <div class="form-group">
+                    <label for="p_weekendPrice">주말 가격 / 시간</label>
+                    <input type="number" class="form-control" id="p_weekendPrice" placeholder="주말 가격 (/시간)을 입력하세요" step="10">
+                </div>
+
+                <p class="font-weight-bold">판매 상품 유형(최대 5개)</p>
+                <div class="form-group row g-3 border rounded p-3 ml-0 mr-0">
+                    <div class="col-auto">
+                        <label for="typeTitle1">제목</label>
+                        <div class="form-inline">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">1</span>
+                            </div>
+                            <input type="text" class="form-control" id="typeTitle1" name="typeTitle" placeholder="ex) 종일권 or 오전권">
+                        </div>
+                    </div>
+                    <div class="col-auto">
+                        <label for="startTime1">시작 시간</label>
+                        <div class="form-inline">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">1</span>
+                            </div>
+                            <input type="text" id="startTime1" name="startTime" class="form-control" style="width:200px;" readonly>
+                        </div>
+                    </div>
+                    <div class="col-auto">
+                        <label for="endTime1">종료 시간</label>
+                        <div class="form-inline">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">1</span>
+                            </div>
+                            <input type="text" id="endTime1" name="endTime" class="form-control" style="width:200px;" readonly>
+                        </div>
+                    </div>
+                    <div class="col-auto">
+                        <label for="count1">갯수</label>
+                        <div class="form-inline">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">1</span>
+                            </div>
+                            <input type="number" id="count1" name="count" class="form-control" style="width:100px;" min="1">
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group row g-3 border rounded p-3 ml-0 mr-0">
+                    <div class="col-auto">
+                        <label for="typeTitle2">제목</label>
+                        <div class="form-inline">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">2</span>
+                            </div>
+                            <input type="text" class="form-control" id="typeTitle2" name="typeTitle" placeholder="ex) 종일권 or 오전권">
+                        </div>
+                    </div>
+                    <div class="col-auto">
+                        <label for="startTime2">시작 시간</label>
+                        <div class="form-inline">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">2</span>
+                            </div>
+                            <input type="text" id="startTime2" name="startTime" class="form-control" style="width:200px;" readonly>
+                        </div>
+                    </div>
+                    <div class="col-auto">
+                        <label for="endTime2">종료 시간</label>
+                        <div class="form-inline">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">2</span>
+                            </div>
+                            <input type="text" id="endTime2" name="endTime" class="form-control" style="width:200px;" readonly>
+                        </div>
+                    </div>
+                    <div class="col-auto">
+                        <label for="count2">갯수</label>
+                        <div class="form-inline">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">2</span>
+                            </div>
+                            <input type="number" id="count2" name="count" class="form-control" style="width:100px;" min="1">
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group row g-3 border rounded p-3 ml-0 mr-0">
+                    <div class="col-auto">
+                        <label for="typeTitle3">제목</label>
+                        <div class="form-inline">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">3</span>
+                            </div>
+                            <input type="text" class="form-control" id="typeTitle3" name="typeTitle" placeholder="ex) 종일권 or 오전권">
+                        </div>
+                    </div>
+                    <div class="col-auto">
+                        <label for="startTime3">시작 시간</label>
+                        <div class="form-inline">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">3</span>
+                            </div>
+                            <input type="text" id="startTime3" name="startTime" class="form-control" style="width:200px;" readonly>
+                        </div>
+                    </div>
+                    <div class="col-auto">
+                        <label for="endTime3">종료 시간</label>
+                        <div class="form-inline">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">3</span>
+                            </div>
+                            <input type="text" id="endTime3" name="endTime" class="form-control" style="width:200px;" readonly>
+                        </div>
+                    </div>
+                    <div class="col-auto">
+                        <label for="count3">갯수</label>
+                        <div class="form-inline">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">3</span>
+                            </div>
+                            <input type="number" id="count3" name="count" class="form-control" style="width:100px;" min="1">
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group row g-3 border rounded p-3 ml-0 mr-0">
+                    <div class="col-auto">
+                        <label for="typeTitle4">제목</label>
+                        <div class="form-inline">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">4</span>
+                            </div>
+                            <input type="text" class="form-control" id="typeTitle4" name="typeTitle" placeholder="ex) 종일권 or 오전권">
+                        </div>
+                    </div>
+                    <div class="col-auto">
+                        <label for="startTime4">시작 시간</label>
+                        <div class="form-inline">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">4</span>
+                            </div>
+                            <input type="text" id="startTime4" name="startTime" class="form-control" style="width:200px;" readonly>
+                        </div>
+                    </div>
+                    <div class="col-auto">
+                        <label for="endTime4">종료 시간</label>
+                        <div class="form-inline">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">4</span>
+                            </div>
+                            <input type="text" id="endTime4" name="endTime" class="form-control" style="width:200px;" readonly>
+                        </div>
+                    </div>
+                    <div class="col-auto">
+                        <label for="count4">갯수</label>
+                        <div class="form-inline">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">4</span>
+                            </div>
+                            <input type="number" id="count4" name="count" class="form-control" style="width:100px;" min="1">
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group row g-3 border rounded p-3 ml-0 mr-0">
+                    <div class="col-auto">
+                        <label for="typeTitle5">제목</label>
+                        <div class="form-inline">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">5</span>
+                            </div>
+                            <input type="text" class="form-control" id="typeTitle5" name="typeTitle" placeholder="ex) 종일권 or 오전권">
+                        </div>
+                    </div>
+                    <div class="col-auto">
+                        <label for="startTime5">시작 시간</label>
+                        <div class="form-inline">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">5</span>
+                            </div>
+                            <input type="text" id="startTime5" name="startTime" class="form-control" style="width:200px;" readonly>
+                        </div>
+                    </div>
+                    <div class="col-auto">
+                        <label for="endTime5">종료 시간</label>
+                        <div class="form-inline">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">5</span>
+                            </div>
+                            <input type="text" id="endTime5" name="endTime" class="form-control" style="width:200px;" readonly>
+                        </div>
+                    </div>
+                    <div class="col-auto">
+                        <label for="count5">갯수</label>
+                        <div class="form-inline">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">5</span>
+                            </div>
+                            <input type="number" id="count5" name="count" class="form-control" style="width:100px;" min="1">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="p_facility">시설 (최대 10개 추가 가능)<a href="#aa" class="facility_add_btn ml-3"><i class="fa fa-plus"></i></a></label>
+                    <div class="form-inline">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="facility-1">1</span>
+                        </div>
+                        <input type="text" class="form-control" id="p_facility1" name="facility">
+                    </div>
+                    <div class="facility_append">
+
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="p_notice">유의사항 (최대 10개 추가 가능)<a href="#ab" class="notice_add_btn ml-3"><i class="fa fa-plus"></i></a></label>
+                    <div class="form-inline">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="notice-1">1</span>
+                        </div>
+                        <input type="text" class="form-control" id="p_notice1" name="notice">
+                    </div>
+                    <div class="notice_append">
+
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="p_policy">정책 (최대 10개 추가 가능)<a href="#ab" class="policy_add_btn ml-3"><i class="fa fa-plus"></i></a></label>
+                    <div class="form-inline">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="policy-1">1</span>
+                        </div>
+                        <input type="text" class="form-control" id="p_policy1" name="policy">
+                    </div>
+                    <div class="policy_append">
+
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="p_maxNum">최대 인원 수</label>
+                    <input type="number" class="form-control" id="p_maxNum" placeholder="최대 인원 수를 입력하세요">
+                </div>
+                <a href="/" role="button" class="btn btn-secondary">취소</a>
+                <button type="button" class="btn btn-primary" id="btn-space-save">등록</button>
+            </form>
+        </div>
+
+    </div>
+</div>
+
+<script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script>
+    function sample6_execDaumPostcode() {
+        new daum.Postcode({
+            oncomplete: function(data) {
+                // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+
+                // 각 주소의 노출 규칙에 따라 주소를 조합한다.
+                // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+                var addr = ''; // 주소 변수
+
+
+                //사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
+                if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
+                    addr = data.roadAddress;
+                } else { // 사용자가 지번 주소를 선택했을 경우(J)
+                    addr = data.jibunAddress;
+                }
+
+
+
+                // 우편번호와 주소 정보를 해당 필드에 넣는다.
+                document.getElementById('sample6_postcode').value = data.zonecode;
+                document.getElementById("sample6_address").value = addr;
+                // 커서를 상세주소 필드로 이동한다.
+                document.getElementById("sample6_detailAddress").focus();
+            }
+        }).open();
+    }
+</script>
+{{>layout/footer}}

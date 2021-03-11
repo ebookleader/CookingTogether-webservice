@@ -1,0 +1,39 @@
+{{>layout/header}}
+<!-- delete review start -->
+<div class="content-area pb-5 pt-5">
+    <div class="bg-info liked-list-start rounded">
+        <p>이용 후기 삭제</p>
+    </div>
+    <div class="container mt-5 pt-2 pb-5 bg-white rounded">
+        <!-- 후기1개 -->
+        <div class="rounded my-review-table mt-5">
+            <table class="">
+                <tbody>
+                <tr>
+                    <td class="review-image"><img src="/img/example.png" class="rounded-circle" alt="" width="70" height="70"></td>
+                    <td class="review-user"><h5>홍길동</h5><p>2020.10.17</p></td>
+                    <td class="text-right review-star"><i class="fa fa-star fa-lg" aria-hidden="true"></i><i class="fa fa-star fa-lg" aria-hidden="true"></i><i class="fa fa-star fa-lg" aria-hidden="true"></i><i class="fa fa-star fa-lg" aria-hidden="true"></i><i class="fa fa-star-o fa-lg" aria-hidden="true"></i></td>
+                </tr>
+                <tr>
+                    <td colspan="3"><p class="question">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="reservation-list-div rounded mb-3">
+            <p class="font-weight-bold text-center mt-4 mb-4 text-danger">후기 삭제시 복구할 수 없습니다. 아래 비밀번호 입력후 삭제가 완료됩니다.</p>
+            <form class="reviewDeleteForm form-inline">
+                <div class="form-group">
+                    <input type="password" class="form-control" placeholder="Input Password">
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary ml-3">Submit</button>
+                    <a href="#" role="button" class="btn btn-secondary ml-2">Cancel</a>
+                </div>
+            </form>
+        </div>
+        <!-- 후기1개 끝 -->
+    </div>
+</div>
+<!-- delete review end -->
+{{>layout/footer}}

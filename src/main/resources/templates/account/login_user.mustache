@@ -1,0 +1,24 @@
+{{>layout/header}}
+<!-- login start -->
+<div class="content-area pb-5 pt-5">
+    <div class="container d-flex justify-content-center">
+        <form class="mt-5 mb-5 p-5" id="login-form">
+            <h3 class="text-center mb-5 font-weight-bold">로그인</h3>
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="" id="naver-login"><img src="/img/naver.png" width="50" height="50" alt=""></span>
+                </div>
+                <a role="button" href="/oauth2/authorization/naver" class="btn-naver" aria-describedby="naver-login">Sign in with Naver</a>
+            </div>
+
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="" id="google-login"><img src="/img/google.png" width="50" height="50" alt=""></span>
+                </div>
+                <a role="button" href="/oauth2/authorization/google" class="btn-google" aria-describedby="google-login">Sign in with Google</a>
+            </div>
+        </form>
+    </div>
+</div>
+<!-- login end -->
+{{>layout/footer}}

@@ -1,0 +1,99 @@
+{{>layout/header}}
+<div class="content-area pb-5 pt-3">
+    <div class="container mt-5 content-body">
+        <form>
+            <p class="reservation-title bg-warning rounded">예약</p>
+            <h4 class="text-sidebar mb-4 font-weight-bold">선택 옵션</h4>
+            <input type="hidden" id="productId" value="{{product.p_id}}">
+            <input type="hidden" id="optionId" value="{{option.po_id}}">
+            <div class="info-div rounded">
+                <div class="row">
+                    <div class="col pr-0">
+                        <img src="/img/recordroom.png" width="300" height="200" alt="">
+                    </div>
+                    <div class="col pl-1 info-p-div">
+                        <p class="info-p pl-4 pb-2">{{product.p_name}}<span class="pl-4"><i class="fa fa-star"></i> {{product.p_avgRating}}/5.0</span></p>
+                        <p><span class="text-info pr-5">유형</span><span class="pl-3 ml-1">{{option.title}} ({{option.startTime}}:00-{{option.endTime}}:00)</span></p>
+                        <p>
+                            <span class="text-info pr-3">예약 날짜</span>
+                            <span class="pl-3" id="ryear">{{year}}</span>년
+                            <span id="rmonth">{{month}}</span>월
+                            <span id="rday">{{day}}</span>일
+                            <span>{{dayOfWeek}}</span>
+                        </p>
+                        <p><span class="text-info pr-5">인원 수</span><span id="reserveNum">{{reserveNum}}</span>명</p>
+                    </div>
+                </div>
+            </div>
+
+            <h4 class="text-sidebar mb-4 mt-5 font-weight-bold">요금 세부 정보</h4>
+            <div class="info-div rounded">
+                <table class="table bill-table table-borderless">
+                    <tbody>
+                    <tr>
+                        <th scope="row" class="text-info">예약 날짜</th>
+                        <td>{{year}}년 {{month}}월 {{day}}일 {{dayOfWeek}}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row" class="text-info">주중/주말</th>
+                        <td>{{weekValue}}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row" class="text-info">선택 유형</th>
+                        <td>{{option.title}} ({{option.startTime}}:00-{{option.endTime}}:00)</td>
+                        <td>+ {{totalPrice}} ({{price}}원 x {{option.usingTime}})</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                    </tr>
+                    <tr class="bill-table-last-row">
+                        <th scope="row" class="text-info">Total Price</th>
+                        <td colspan="2" class="text-center font-weight-bold pr-5"><span id="totalPrice">{{totalPrice}}</span>원</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h4 class="text-sidebar mb-4 mt-5 font-weight-bold">예약자 정보</h4>
+            <div class="info-div rounded">
+                <div class="font-weight-bold text-info pl-4 pt-1 pb-1">
+                    <div class="form-group row">
+                        <label for="reservation-user" class="col-form-label pr-3">예약자이름</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control-plaintext rounded" id="reservation-name" value="">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="reservation-email" class="col-form-label pr-5">이메일</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control-plaintext rounded" id="reservation-email" placeholder="email@example.com" value="">
+                        </div>
+                        <small id="emailHelp" class="form-text text-muted pt-2">결제 완료시 해당 이메일로 예약확정 안내 메일이 발송됩니다</small>
+                    </div>
+                    <div class="form-group row">
+                        <label for="reservation-phone" class="col-form-label pr-3">핸드폰번호</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control-plaintext rounded" id="reservation-phone" placeholder="010-1234-5678">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="service-agree">
+                <div class="form-check mt-5">
+                    <input class="form-check-input" type="checkbox" value="" id="reserveConfirmCheck1">
+                    <label class="form-check-label" for="reserveConfirmCheck1">
+                        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                    </label>
+                </div>
+                <div class="form-check mt-3">
+                    <input class="form-check-input" type="checkbox" value="" id="reserveConfirmCheck2">
+                    <label class="form-check-label" for="reserveConfirmCheck2">
+                        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                    </label>
+                </div>
+            </div>
+            <button type="button" class="btn btn-dark mt-5" id="reserve-ongoing-btn">예약하기</button>
+        </form>
+    </div>
+</div>
+{{>layout/footer}}
