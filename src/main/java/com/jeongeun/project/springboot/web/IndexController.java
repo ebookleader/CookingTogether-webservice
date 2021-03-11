@@ -51,16 +51,23 @@ public class IndexController {
         return "products/space_image_save";
     }
 
-    @GetMapping("/space/list")
-    public String spaceList(Model model, @LoginUser SessionUser user) {
+    @GetMapping("/space/list/{pageNum}")
+    public String spaceList(Model model, @PathVariable int pageNum, @LoginUser SessionUser user) {
         if(user != null) {
             model.addAttribute("user", user);
         }
         //product list
-        model.addAttribute("products", productsService.findAllDesc());
+        model.addAttribute("products", productsService.getProductsList(pageNum));
+        // page List
+        // 전체 페이지 목록으로, 총 게시글 수로 페이지 목록 수 결정
+
+        model.addAttribute("pageList", productsService.getPageList(pageNum));
+        model.addAttribute("lastPageNum", productsService.getLastPageNum());
         addSidebarAttribute(model);
         return "products/space_list";
     }
+
+
 
     @RequestMapping("/space/list/search")
     public String spaceListSearch(Model model, @RequestParam String spaceNameSearch, @LoginUser SessionUser user) {
@@ -69,7 +76,6 @@ public class IndexController {
             model.addAttribute("user", user);
         }
         model.addAttribute("products", productsService.findAllByInput(spaceNameSearch));
-        System.out.println("call");
         addSidebarAttribute(model);
         return "products/space_list";
     }

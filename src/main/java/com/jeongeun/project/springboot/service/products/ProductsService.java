@@ -10,14 +10,18 @@ import com.jeongeun.project.springboot.web.dto.*;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang3.RandomStringUtils;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpSession;
+import java.awt.print.Pageable;
 import java.io.File;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -33,6 +37,8 @@ public class ProductsService {
     private final ProductsOptionRepository productsOptionRepository;
     private final ReservationRepository reservationRepository;
     private final FilesRepository filesRepository;
+    private static final int PAGE_POST_COUNT = 3; // 한 페이지에 존재하는 게시글 수
+    private static final int BLOCK_PAGE_NUM = 5; // 한 블럭에 존재하는 페이지 수
 
     @Transactional
     public Long save(ProductsSaveRequestDto requestDto) {
@@ -166,10 +172,53 @@ public class ProductsService {
     }
 
     @Transactional(readOnly = true)
-    public List<ProductsListResponseDto> findAllDesc() {
-        return productsRepository.findAllDesc().stream()
+    public List<ProductsListResponseDto> getProductsList(int pageNum) {
+        return productsRepository.findAll(PageRequest.of(pageNum-1, PAGE_POST_COUNT, Sort.by(Sort.Direction.DESC, "createdDate"))).stream()
                 .map(ProductsListResponseDto::new)
                 .collect(Collectors.toList());
+    }
+
+    public List<PageListResponseDto> getPageList(int currentPageNum) {
+        List<PageListResponseDto> pageList = new ArrayList<>();
+        int inputCurrentPageNum = currentPageNum;
+
+        // 총 페이지 기준 마지막 페이지 번호
+        int lastPageNum = this.getLastPageNum();
+
+        // 현재 페이지 기준 마지막 페이지 번호
+        int blockLastPageNum = (lastPageNum>currentPageNum+BLOCK_PAGE_NUM) ? currentPageNum+BLOCK_PAGE_NUM : lastPageNum;
+
+        // 페이지 시작 번호
+
+        currentPageNum = (currentPageNum<=3) ? 1: currentPageNum-2;
+
+        // 번호 할당
+        for(int cur=currentPageNum, i=0;cur<=blockLastPageNum;cur++, i++) {
+            if (i==5) {
+                break;
+            }
+            if (cur==inputCurrentPageNum) {
+                pageList.add(new PageListResponseDto(cur, true));
+            }
+            else {
+                pageList.add(new PageListResponseDto(cur, false));
+            }
+
+        }
+
+        return pageList;
+    }
+
+    @Transactional
+    public Long getProductsCount() {
+        return productsRepository.count();
+    }
+
+    public int getLastPageNum() {
+        // 총 게시글 수
+        double totalPostNum = Double.valueOf(this.getProductsCount());
+        // 마지막 페이지 번호
+        return (int)(Math.ceil(totalPostNum/PAGE_POST_COUNT));
     }
 
     @Transactional(readOnly = true)

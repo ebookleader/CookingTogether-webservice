@@ -9,6 +9,9 @@ var main = {
 //        $('#btn-image-save').on('click', function() {
 //            _this.uploadImage();
 //        });
+//        $('#btn-view-all-products').on('click', function() {
+//            _this.viewAllProducts();
+//        });
 
         $('#btn-space-delete').on('click', function() {
             _this.deleteSpace();
@@ -164,6 +167,18 @@ var main = {
 //        }).fail(function (error) {
 //            alert(error);
 //        });
+//    },
+
+//    viewAllProducts : function() {
+//        var initialIndex = 1;
+//        $.ajax({
+//             type:'GET',
+//             url: '/space/list/'+initialIndex,
+//         }).done(function() {
+//            alert('viewAllProducts Done and Redirect to Page');
+//         }).fail(function(error) {
+//
+//         });
 //    },
 
     deleteSpace : function() {

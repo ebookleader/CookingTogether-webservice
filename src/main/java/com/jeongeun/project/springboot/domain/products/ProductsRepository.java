@@ -5,6 +5,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.awt.print.Pageable;
 import java.util.List;
 
 @Repository
@@ -12,8 +13,8 @@ public interface ProductsRepository extends JpaRepository<Products, Long> {
     // JpaRepository<Entity class, pk type>
     // CRUD 메소드 자동 생성
 
-    @Query("SELECT p FROM Products p ORDER BY p_id DESC")
-    List<Products> findAllDesc();
+//    @Query("SELECT p FROM Products p ORDER BY p_id DESC")
+//    List<Products> findAllPerPage(Pageable pageable);
 
     @Query("SELECT p FROM Products p WHERE p_name LIKE CONCAT('%',:input,'%') ORDER BY p_id DESC")
     List<Products> findAllByInput(@Param("input") String input);
