@@ -11,7 +11,7 @@ public class ProductsResponseDto {
     private String p_address;
     private String p_detailAddress;
     private String p_city;
-    private String p_category;
+//    private String p_category;
     private int p_weekdayPrice;
     private int p_weekendPrice;
     private String p_introduce;
@@ -26,7 +26,7 @@ public class ProductsResponseDto {
         this.p_address = entity.getP_address();
         this.p_detailAddress = entity.getP_detailAddress();
         this.p_city = entity.getP_city();
-        this.p_category = entity.getP_category();
+//        this.p_category = entity.getP_category();
         this.p_weekdayPrice = entity.getP_weekdayPrice();
         this.p_weekendPrice = entity.getP_weekendPrice();
         this.p_introduce = entity.getP_introduce();

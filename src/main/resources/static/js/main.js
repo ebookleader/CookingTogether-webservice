@@ -8,10 +8,10 @@ $(document).ready(function() {
   })
 
   // 카테고리 선택 영역
-  $("#category-instrument,#category-sing,#category-dance,#category-cooking,#category-musical,#category-study").click(function() {
-    var k = $(this).text();
-    $("#category-dropdown").text(k);
-  })
+//  $("#category-instrument,#category-sing,#category-dance,#category-cooking,#category-musical,#category-study").click(function() {
+//    var k = $(this).text();
+//    $("#category-dropdown").text(k);
+//  })
 
     // 동적 input(facility) 추가
 

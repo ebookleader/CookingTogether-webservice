@@ -179,12 +179,12 @@ public class ProductsService {
                 .collect(Collectors.toList());
     }
 
-    @Transactional(readOnly = true)
-    public List<ProductsListResponseDto> findAllByCategory(String category) {
-        return productsRepository.findAllByCategory(category).stream()
-                .map(ProductsListResponseDto::new)
-                .collect(Collectors.toList());
-    }
+//    @Transactional(readOnly = true)
+//    public List<ProductsListResponseDto> findAllByCategory(String category) {
+//        return productsRepository.findAllByCategory(category).stream()
+//                .map(ProductsListResponseDto::new)
+//                .collect(Collectors.toList());
+//    }
 
     @Transactional(readOnly = true)
     public List<ProductsListResponseDto> findAllByCity(String city) {
@@ -279,7 +279,7 @@ public class ProductsService {
         );
 
         products.update(requestDto.getP_name(), requestDto.getP_postcode(), requestDto.getP_address(), requestDto.getP_detailAddress(),
-                requestDto.getP_city(), requestDto.getP_category(), requestDto.getP_weekdayPrice(), requestDto.getP_weekendPrice(), requestDto.getP_introduce(), requestDto.getP_maxNum());
+                requestDto.getP_city(), requestDto.getP_weekdayPrice(), requestDto.getP_weekendPrice(), requestDto.getP_introduce(), requestDto.getP_maxNum());
 
         productsFacilityRepository.deleteProductsFacility(id);
         productsNoticeRepository.deleteProductsNotice(id);
@@ -320,10 +320,10 @@ public class ProductsService {
         return productsRepository.findEachNumByCity(p_city);
     }
 
-    @Transactional(readOnly = true)
-    public int findEachNumByCategory(String p_category) {
-        return productsRepository.findEachNumByCategory(p_category);
-    }
+//    @Transactional(readOnly = true)
+//    public int findEachNumByCategory(String p_category) {
+//        return productsRepository.findEachNumByCategory(p_category);
+//    }
 
     @Transactional(readOnly = true)
     public int findEachNumByPrice(int min, int max) {

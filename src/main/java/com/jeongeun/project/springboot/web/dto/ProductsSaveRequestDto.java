@@ -15,7 +15,7 @@ public class ProductsSaveRequestDto {
     private String p_address;
     private String p_detailAddress;
     private String p_city;
-    private String p_category;
+//    private String p_category;
     private int p_weekdayPrice;
     private int p_weekendPrice;
     private String p_introduce;
@@ -33,7 +33,7 @@ public class ProductsSaveRequestDto {
 
 
     @Builder
-    public ProductsSaveRequestDto(String p_name, int p_postcode, String p_address, String p_detailAddress, String p_city, String p_category, int p_weekdayPrice, int p_weekendPrice, String p_introduce,
+    public ProductsSaveRequestDto(String p_name, int p_postcode, String p_address, String p_detailAddress, String p_city, int p_weekdayPrice, int p_weekendPrice, String p_introduce,
                                   int p_maxNum, int p_liked, double p_avgRating, List<String> facility, List<String> notice, List<String> policy, List<String> optionTitle,
                                   List<Integer> startTime, List<Integer> endTime, List<Integer> count) {
         this.p_name = p_name;
@@ -41,7 +41,7 @@ public class ProductsSaveRequestDto {
         this.p_address = p_address;
         this.p_detailAddress = p_detailAddress;
         this.p_city = p_city;
-        this.p_category = p_category;
+//        this.p_category = p_category;
         this.p_weekdayPrice = p_weekdayPrice;
         this.p_weekendPrice = p_weekendPrice;
         this.p_introduce = p_introduce;
@@ -64,7 +64,7 @@ public class ProductsSaveRequestDto {
                 .p_address(p_address)
                 .p_detailAddress(p_detailAddress)
                 .p_city(p_city)
-                .p_category(p_category)
+//                .p_category(p_category)
                 .p_weekdayPrice(p_weekdayPrice)
                 .p_weekendPrice(p_weekendPrice)
                 .p_introduce(p_introduce)

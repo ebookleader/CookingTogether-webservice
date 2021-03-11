@@ -84,15 +84,15 @@ public class IndexController {
         return "products/space_list";
     }
 
-    @GetMapping("/space/list/category/{category}")
-    public String spaceListCategory(Model model, @PathVariable String category, @LoginUser SessionUser user) {
-        if(user != null) {
-            model.addAttribute("user", user);
-        }
-        addSidebarAttribute(model);
-        model.addAttribute("products", productsService.findAllByCategory(category));
-        return "products/space_list";
-    }
+//    @GetMapping("/space/list/category/{category}")
+//    public String spaceListCategory(Model model, @PathVariable String category, @LoginUser SessionUser user) {
+//        if(user != null) {
+//            model.addAttribute("user", user);
+//        }
+//        addSidebarAttribute(model);
+//        model.addAttribute("products", productsService.findAllByCategory(category));
+//        return "products/space_list";
+//    }
 
     @GetMapping("/space/list/price/{priceIndex}")
     public String spaceListPrice(Model model, @PathVariable int priceIndex, @LoginUser SessionUser user) {
@@ -130,10 +130,10 @@ public class IndexController {
             model.addAttribute("city"+i, productsService.findEachNumByCity(cityList[i]));
         }
         //category sidebar num
-        String[] categoryList = {"악기", "녹음", "댄스", "뮤지컬", "쿠킹", "스터디"};
-        for(int i=0;i<6;i++) {
-            model.addAttribute("category"+i, productsService.findEachNumByCategory(categoryList[i]));
-        }
+//        String[] categoryList = {"악기", "녹음", "댄스", "뮤지컬", "쿠킹", "스터디"};
+//        for(int i=0;i<6;i++) {
+//            model.addAttribute("category"+i, productsService.findEachNumByCategory(categoryList[i]));
+//        }
         // price sidebar num
         Integer[] priceList = {0, 10000, 35000, 70000, 100000};
         for(int i=0;i<5;i++) {

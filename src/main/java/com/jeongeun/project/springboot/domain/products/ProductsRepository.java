@@ -18,8 +18,8 @@ public interface ProductsRepository extends JpaRepository<Products, Long> {
     @Query("SELECT p FROM Products p WHERE p_name LIKE CONCAT('%',:input,'%') ORDER BY p_id DESC")
     List<Products> findAllByInput(@Param("input") String input);
 
-    @Query("SELECT p FROM Products p WHERE p_category=:category ORDER BY p_id DESC")
-    List<Products> findAllByCategory(String category);
+//    @Query("SELECT p FROM Products p WHERE p_category=:category ORDER BY p_id DESC")
+//    List<Products> findAllByCategory(String category);
 
     @Query("SELECT p FROM Products p WHERE p_city=:city ORDER BY p_id DESC")
     List<Products> findAllByCity(@Param("city") String city);
@@ -39,8 +39,8 @@ public interface ProductsRepository extends JpaRepository<Products, Long> {
     int findEachNumByCity(@Param("p_city") String p_city);
 
     // By Category
-    @Query("SELECT COUNT(*) FROM Products p WHERE p_category=:p_category")
-    int findEachNumByCategory(@Param("p_category") String p_category);
+//    @Query("SELECT COUNT(*) FROM Products p WHERE p_category=:p_category")
+//    int findEachNumByCategory(@Param("p_category") String p_category);
 
     // By Price
     @Query("SELECT COUNT(*) FROM Products p WHERE p_weekdayPrice>=:min and p_weekdayPrice<:max")

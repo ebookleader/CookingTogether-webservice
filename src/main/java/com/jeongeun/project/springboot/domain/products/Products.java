@@ -43,8 +43,8 @@ public class Products extends BaseTimeEntity {
     @Column(nullable = false)
     private String p_city;
 
-    @Column(nullable = false)
-    private String p_category;
+//    @Column(nullable = false)
+//    private String p_category;
 
     @Column(nullable = false)
     private int p_weekdayPrice;
@@ -86,7 +86,7 @@ public class Products extends BaseTimeEntity {
 
 
     @Builder
-    public Products(String p_name, int p_postcode, String p_address, String p_detailAddress, String p_city, String p_category,
+    public Products(String p_name, int p_postcode, String p_address, String p_detailAddress, String p_city,
                     int p_weekdayPrice, int p_weekendPrice, String p_introduce,  int p_maxNum, int p_liked, double p_avgRating
                     ) {
         this.p_name = p_name;
@@ -94,7 +94,7 @@ public class Products extends BaseTimeEntity {
         this.p_address = p_address;
         this.p_detailAddress = p_detailAddress;
         this.p_city = p_city;
-        this.p_category = p_category;
+//        this.p_category = p_category;
         this.p_weekdayPrice = p_weekdayPrice;
         this.p_weekendPrice = p_weekendPrice;
         this.p_introduce = p_introduce;
@@ -107,14 +107,14 @@ public class Products extends BaseTimeEntity {
         this.user = user;
     }
 
-    public void update(String p_name, int p_postcode, String p_address, String p_detailAddress, String p_city, String p_category, int p_weekdayPrice,
+    public void update(String p_name, int p_postcode, String p_address, String p_detailAddress, String p_city, int p_weekdayPrice,
                        int p_weekendPrice, String p_introduce, int p_maxNum) {
         this.p_name = p_name;
         this.p_postcode = p_postcode;
         this.p_address = p_address;
         this.p_detailAddress = p_detailAddress;
         this.p_city = p_city;
-        this.p_category = p_category;
+//        this.p_category = p_category;
         this.p_weekdayPrice = p_weekdayPrice;
         this.p_weekendPrice = p_weekendPrice;
         this.p_introduce = p_introduce;

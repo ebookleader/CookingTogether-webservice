@@ -118,7 +118,7 @@ var main = {
             p_address : $('#sample6_address').val(),
             p_detailAddress : $('#sample6_detailAddress').val(),
             p_city: $('#p_city').val(),
-            p_category: $('#p_category').val(),
+//            p_category: $('#p_category').val(),
             p_weekdayPrice: $('#p_weekdayPrice').val(),
             p_weekendPrice: $('#p_weekendPrice').val(),
             p_introduce: $('#p_introduce').val(),
@@ -202,7 +202,7 @@ var main = {
             p_name: $('#p_name').val(),
             p_location: $('#p_location').val(),
             p_city: $('#p_city').val(),
-            p_category: $('#p_category').val(),
+//            p_category: $('#p_category').val(),
             p_weekdayPrice: $('#p_weekdayPrice').val(),
             p_weekendPrice: $('#p_weekendPrice').val(),
             p_introduce: $('#p_introduce').val(),
@@ -431,9 +431,9 @@ var main = {
 
     mainPageSearch : function() {
         var location = $("#location-dropdown").text();
-        var category = $("#category-dropdown").text();
+//        var category = $("#category-dropdown").text();
         alert(location);
-        alert(category);
+//        alert(category);
 //        $.ajax({
 //                type: 'GET',
 //                url: '/api/v1/products/checkReservationIsOk',
