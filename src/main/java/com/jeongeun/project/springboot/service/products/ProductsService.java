@@ -525,5 +525,12 @@ public class ProductsService {
         return new ProductsOptionResponseDto(po);
     }
 
+    @Transactional
+    public Long cancelReservation(Long rid) {
+        Reservation r = reservationRepository.findById(rid).orElseThrow(() -> new IllegalArgumentException("There is no reservation where rid="+rid));
+        reservationRepository.delete(r);
+        return rid;
+    }
+
 
 }

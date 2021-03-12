@@ -4,7 +4,7 @@
         <p class="border border-dark rounded mb-5 pl-5 pt-3 pb-3 font-weight-bold h3">
            예약 현황
         </p>
-        <h4 class="text-sidebar mb-4 font-weight-bold">선택 옵션</h4>
+        <h4 class="text-sidebar mb-4 font-weight-bold">예약 정보</h4>
         <div class="info-div rounded">
             <div class="row">
                 <div class="col pr-0 pt-3">
@@ -12,6 +12,7 @@
                 </div>
                 <div class="col pl-1 info-p-div">
                     <p class="info-p pl-4 pb-2">{{res.pname}}</p>
+                    <input type="hidden" value="{{res.rid}}" id="rid">
                     <p><span class="text-info pr-5">유형</span><span class="pl-3 ml-1">{{option.title}}
                         ({{option.startTime}}:00-{{option.endTime}}:00)</span></p>
                     <p>
@@ -50,7 +51,7 @@
             </div>
         </div>
         <a href="/myPage/user/ongoingReservationList" role="button" class="btn btn-dark mt-5 mr-2">이전으로</a>
-        <a href="" role="button" class="btn btn-info mt-5" id="">예약취소</a>
+        <a href="" role="button" class="btn btn-info mt-5" id="btn-cancel-reservation">예약취소</a>
     </div>
 </div>
 {{>layout/footer}}

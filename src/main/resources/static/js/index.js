@@ -60,6 +60,10 @@ var main = {
         $("#mainpage-search-button").on('click', function() {
             _this.mainPageSearch();
         });
+
+        $('#btn-cancel-reservation').on('click', function() {
+            _this.cancelReservation();
+        })
     },
 
     save : function() {
@@ -465,6 +469,21 @@ var main = {
 //                }
 //         });
     },
+
+    cancelReservation : function() {
+        var rid = $('#rid').val();
+        $.ajax({
+            type: 'DELETE',
+            url: '/api/v1/products/reservation/cancel/'+rid,
+            dataType: 'json',
+            contentType: 'application/json; charset=utf-8'
+        }).done(function() {
+            alert('예약이 취소되었습니다.');
+            window.location.href = '/myPage/user/ongoingReservationList';
+        }).fail(function(error){
+            alert(JSON.stringify(error));
+        });
+    }
 
 
 };

@@ -62,4 +62,9 @@ public class ProductsApiController {
     public Long saveReservation(@RequestBody ReservationSaveRequestDto requestDto) {
         return productsService.saveReservation(requestDto);
     }
+
+    @DeleteMapping("/api/v1/products/reservation/cancel/{rid}")
+    public Long cancelReservation(@PathVariable Long rid) {
+        return productsService.cancelReservation(rid);
+    }
 }
