@@ -13,14 +13,15 @@ public interface ProductsRepository extends JpaRepository<Products, Long> {
     // JpaRepository<Entity class, pk type>
     // CRUD 메소드 자동 생성
 
-//    @Query("SELECT p FROM Products p ORDER BY p_id DESC")
-//    List<Products> findAllPerPage(Pageable pageable);
 
     @Query("SELECT p FROM Products p WHERE p_name LIKE CONCAT('%',:input,'%') ORDER BY p_id DESC")
     List<Products> findAllByInput(@Param("input") String input);
 
 //    @Query("SELECT p FROM Products p WHERE p_category=:category ORDER BY p_id DESC")
 //    List<Products> findAllByCategory(String category);
+
+    @Query("SELECT p FROM Products p WHERE p_id=:p_id")
+    List<Products> findAllByPid(@Param("p_id") Long p_id);
 
     @Query("SELECT p FROM Products p WHERE p_city=:city ORDER BY p_id DESC")
     List<Products> findAllByCity(@Param("city") String city);

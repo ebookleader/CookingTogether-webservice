@@ -1,0 +1,27 @@
+{{>layout/header}}
+<div class="content-area pb-5 pt-3">
+    <div class="container mt-5 mb-5">
+        <p class="border border-dark rounded pl-5 pt-3 pb-3 font-weight-bold h3">예약 현황</p>
+        <table class="table">
+            <thead class="thead-dark">
+            <tr>
+                <th scope="col">상태</th>
+                <th scope="col">상품명</th>
+                <th scope="col">예약 날짜</th>
+                <th scope="col">예약자 이름</th>
+            </tr>
+            </thead>
+            <tbody>
+            {{#reservedList}}
+                <tr>
+                    <th scope="row">{{status}}</th>
+                    <td><a href="/myPage/user/ongoingReservation/{{rid}}" class="text-decoration-none font-weight-bold">{{p_name}}</a></td>
+                    <td>{{ryear}}년 {{rmonth}}월 {{rday}}일</td>
+                    <td>{{userReservationName}}</td>
+                </tr>
+            {{/reservedList}}
+            </tbody>
+        </table>
+    </div>
+</div>
+{{>layout/footer}}

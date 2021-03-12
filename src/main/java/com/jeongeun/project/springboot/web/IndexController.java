@@ -4,7 +4,12 @@ package com.jeongeun.project.springboot.web;
 
 import com.jeongeun.project.springboot.config.auth.LoginUser;
 import com.jeongeun.project.springboot.config.auth.dto.SessionUser;
+import com.jeongeun.project.springboot.domain.reservation.Reservation;
 import com.jeongeun.project.springboot.service.products.ProductsService;
+import com.jeongeun.project.springboot.service.user.UserService;
+import com.jeongeun.project.springboot.web.dto.ProductsListResponseDto;
+import com.jeongeun.project.springboot.web.dto.ProductsResponseDto;
+import com.jeongeun.project.springboot.web.dto.ReservationResponseDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,11 +18,15 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @RequiredArgsConstructor
 @Controller
 public class IndexController {
 
     private final ProductsService productsService;
+    private final UserService userService;
 //    private final S3Uploader s3Uploader;
 
     @GetMapping("/")
@@ -163,7 +172,7 @@ public class IndexController {
         }
 //        model.addAttribute("thumbnail", productsService.findProductsThumbnailById(p_id));
 //        model.addAttribute("files", productsService.findProductsFilesById(p_id));
-        model.addAttribute("product", productsService.findById(p_id));
+        model.addAttribute("product", productsService.findProductsDetailById(p_id));
         model.addAttribute("facility", productsService.findProductsFacilityById(p_id));
         model.addAttribute("notice", productsService.findProductsNoticeById(p_id));
         model.addAttribute("policy", productsService.findProductsPolicyById(p_id));
@@ -216,6 +225,31 @@ public class IndexController {
             model.addAttribute("user", user);
         }
         return "account/mypage_check_email";
+    }
+
+    @GetMapping("/myPage/user/ongoingReservationList")
+    public String mypage_ongoing_reservation_title(Model model, @LoginUser SessionUser user) {
+        if(user != null) {
+            model.addAttribute("user", user);
+        }
+
+        String userEmail = user.getEmail();
+        List<ReservationResponseDto> userReservationList = userService.findUserReservation(userEmail);
+        model.addAttribute("reservedList", userService.getUserReservationTableList(userReservationList));
+
+        return "account/mypage_ongoing_reservation_list";
+    }
+
+    @GetMapping("/myPage/user/ongoingReservation/{rid}")
+    public String mypage_ongoing_reservation(Model model, @PathVariable Long rid, @LoginUser SessionUser user) {
+        if(user != null) {
+            model.addAttribute("user", user);
+        }
+
+        model.addAttribute("res", userService.findReservationById(rid));
+
+        model.addAttribute("option", productsService.findProductsOptionByRid(rid));
+        return "account/mypage_ongoing_reservation";
     }
 
     @GetMapping("/space/list/detail/reservationOngoing/{month}/{day}/{year}/{p_id}/{po_id}/{reserveNum}")

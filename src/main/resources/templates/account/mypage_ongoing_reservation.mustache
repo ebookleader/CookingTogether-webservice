@@ -1,0 +1,56 @@
+{{>layout/header}}
+<div class="content-area pb-5 pt-3">
+    <div class="container mt-5 content-body">
+        <p class="border border-dark rounded mb-5 pl-5 pt-3 pb-3 font-weight-bold h3">
+           예약 현황
+        </p>
+        <h4 class="text-sidebar mb-4 font-weight-bold">선택 옵션</h4>
+        <div class="info-div rounded">
+            <div class="row">
+                <div class="col pr-0 pt-3">
+                    <img src="/img/recordroom.png" width="300" height="200" alt="">
+                </div>
+                <div class="col pl-1 info-p-div">
+                    <p class="info-p pl-4 pb-2">{{res.pname}}</p>
+                    <p><span class="text-info pr-5">유형</span><span class="pl-3 ml-1">{{option.title}}
+                        ({{option.startTime}}:00-{{option.endTime}}:00)</span></p>
+                    <p>
+                        <span class="text-info pr-3">예약 날짜</span>
+                        <span class="pl-3">{{res.ryear}}</span>년
+                        <span>{{res.rmonth}}</span>월
+                        <span>{{res.rday}}</span>일
+                    </p>
+                    <p><span class="text-info pr-5">인원 수</span><span class="pl-1">{{res.numOfPeople}}명</span></p>
+                    <p><span class="text-info pr-5">가격</span><span class="pl-3 ml-1">{{res.totalPrice}}원</span></p>
+                </div>
+            </div>
+        </div>
+
+        <h4 class="text-sidebar mb-4 mt-5 font-weight-bold">예약자 정보</h4>
+        <div class="info-div rounded">
+            <div class="font-weight-bold text-info pl-4 pt-1 pb-1">
+                <div class="form-group row">
+                    <label for="reservation-user" class="col-form-label pr-3">예약자이름</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control-plaintext rounded" value="{{res.userReservationName}}" readonly>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="reservation-email" class="col-form-label pr-5">이메일</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control-plaintext rounded" value="{{res.userReservationEmail}}" readonly>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="reservation-phone" class="col-form-label pr-3">핸드폰번호</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control-plaintext rounded" value="{{res.userReservationPhone}}" readonly>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <a href="/myPage/user/ongoingReservationList" role="button" class="btn btn-dark mt-5 mr-2">이전으로</a>
+        <a href="" role="button" class="btn btn-info mt-5" id="">예약취소</a>
+    </div>
+</div>
+{{>layout/footer}}

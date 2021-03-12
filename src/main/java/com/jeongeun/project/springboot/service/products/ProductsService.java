@@ -115,7 +115,15 @@ public class ProductsService {
     }
 
     @Transactional(readOnly = true)
-    public ProductsResponseDto findById(Long id) {
+    public ProductsListResponseDto findById(Long id) {
+        Products entity = productsRepository.findById(id).orElseThrow(
+                () -> new IllegalArgumentException("There is no product which id=" + id)
+        );
+        return new ProductsListResponseDto(entity);
+    }
+
+    @Transactional(readOnly = true)
+    public ProductsResponseDto findProductsDetailById(Long id) {
         Products entity = productsRepository.findById(id).orElseThrow(
                 () -> new IllegalArgumentException("There is no product which id=" + id)
         );
@@ -507,6 +515,14 @@ public class ProductsService {
         reservationRepository.save(reservation);
 
         return reservation.getRid();
+    }
+
+    @Transactional
+    public ProductsOptionResponseDto findProductsOptionByRid(Long rid) {
+        Reservation r = reservationRepository.findById(rid).orElseThrow(() -> new IllegalArgumentException("There is no reservation where rid="+rid));
+        Long po_id = r.getOptionId();
+        ProductsOption po = productsOptionRepository.findById(po_id).orElseThrow(() -> new IllegalArgumentException("There is no option where po_id="+po_id));
+        return new ProductsOptionResponseDto(po);
     }
 
 
