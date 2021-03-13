@@ -11,6 +11,7 @@ import com.jeongeun.project.springboot.web.dto.ProductsListResponseDto;
 import com.jeongeun.project.springboot.web.dto.ProductsResponseDto;
 import com.jeongeun.project.springboot.web.dto.ReservationResponseDto;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.java.Log;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -60,6 +61,9 @@ public class IndexController {
         return "products/space_image_save";
     }
 
+
+    ////////// space List ////////////
+
     @GetMapping("/space/list/{pageNum}")
     public String spaceList(Model model, @PathVariable int pageNum, @LoginUser SessionUser user) {
         if(user != null) {
@@ -67,6 +71,7 @@ public class IndexController {
         }
         //product list
         model.addAttribute("products", productsService.getProductsList(pageNum));
+
         // page List
         // 전체 페이지 목록으로, 총 게시글 수로 페이지 목록 수 결정
 
@@ -76,64 +81,82 @@ public class IndexController {
         return "products/space_list";
     }
 
-
-
-    @RequestMapping("/space/list/search")
-    public String spaceListSearch(Model model, @RequestParam String spaceNameSearch, @LoginUser SessionUser user) {
-        System.out.println("search >>>>>> "+spaceNameSearch);
+    @RequestMapping("/space/list/search/{pageNum}")
+    public String spaceListSearch(Model model, @RequestParam String spaceNameSearch, @PathVariable int pageNum, @LoginUser SessionUser user) {
         if(user != null) {
             model.addAttribute("user", user);
         }
-        model.addAttribute("products", productsService.findAllByInput(spaceNameSearch));
+        model.addAttribute("products", productsService.getProductsListByInput(pageNum, spaceNameSearch));
+        model.addAttribute("pageList", productsService.getPageListByInput(pageNum, spaceNameSearch));
+        model.addAttribute("lastPageNum", productsService.getLastPageNumByInput(spaceNameSearch));
+        model.addAttribute("inputName", spaceNameSearch);
+//        model.addAttribute("products", productsService.findAllByInput(spaceNameSearch));
         addSidebarAttribute(model);
-        return "products/space_list";
+        return "products/space_list_name";
     }
 
-    @GetMapping("/space/list/city/{city}")
-    public String spaceListCity(Model model, @PathVariable String city, @LoginUser SessionUser user) {
+    @GetMapping("/space/list/search/{name}/{pageNum}")
+    public String spaceListSearchName(Model model, @PathVariable String name, @PathVariable int pageNum, @LoginUser SessionUser user) {
+        if(user != null) {
+            model.addAttribute("user", user);
+        }
+        model.addAttribute("products", productsService.getProductsListByInput(pageNum, name));
+        model.addAttribute("pageList", productsService.getPageListByInput(pageNum, name));
+        model.addAttribute("lastPageNum", productsService.getLastPageNumByInput(name));
+        model.addAttribute("inputName", name);
+        addSidebarAttribute(model);
+        return "products/space_list_name";
+    }
+
+    @GetMapping("/space/list/city/{city}/{pageNum}")
+    public String spaceListCity(Model model, @PathVariable String city, @PathVariable int pageNum, @LoginUser SessionUser user) {
         if(user != null) {
             model.addAttribute("user", user);
         }
         addSidebarAttribute(model);
-        model.addAttribute("products", productsService.findAllByCity(city));
-        return "products/space_list";
+
+        model.addAttribute("products", productsService.getProductsListByCity(pageNum, city));
+        model.addAttribute("pageList", productsService.getPageListByCity(pageNum, city));
+        model.addAttribute("lastPageNum", productsService.getLastPageNumByCity(city));
+        model.addAttribute("inputCity", city);
+        return "products/space_list_city";
     }
 
-//    @GetMapping("/space/list/category/{category}")
-//    public String spaceListCategory(Model model, @PathVariable String category, @LoginUser SessionUser user) {
-//        if(user != null) {
-//            model.addAttribute("user", user);
-//        }
-//        addSidebarAttribute(model);
-//        model.addAttribute("products", productsService.findAllByCategory(category));
-//        return "products/space_list";
-//    }
-
-    @GetMapping("/space/list/price/{priceIndex}")
-    public String spaceListPrice(Model model, @PathVariable int priceIndex, @LoginUser SessionUser user) {
+    @GetMapping("/space/list/price/{priceIndex}/{pageNum}")
+    public String spaceListPrice(Model model, @PathVariable int priceIndex, @PathVariable int pageNum, @LoginUser SessionUser user) {
         if(user != null) {
             model.addAttribute("user", user);
         }
         addSidebarAttribute(model);
 
         Integer[] priceList = {0, 10000, 35000, 70000, 100000};
+        int min = priceList[priceIndex];
+        int max = priceList[priceIndex+1];
         if(priceIndex==4) {
-            model.addAttribute("products", productsService.findAllByPriceLast(priceList[priceIndex]));
+            model.addAttribute("products", productsService.findAllByPriceLast(min));
+            model.addAttribute("pageList", productsService.getPageListByPriceLast(pageNum, min));
+            model.addAttribute("lastPageNum", productsService.getLastPageNumByPriceLast(min));
         }
         else {
-            model.addAttribute("products", productsService.findAllByPrice(priceList[priceIndex], priceList[priceIndex+1]));
+            model.addAttribute("products", productsService.getProductsListByPrice(pageNum, min, max));
+            model.addAttribute("pageList", productsService.getPageListByPrice(pageNum, min, max));
+            model.addAttribute("lastPageNum", productsService.getLastPageNumByPrice(min, max));
         }
-        return "products/space_list";
+        model.addAttribute("inputPriceIndex", priceIndex);
+        return "products/space_list_price";
     }
 
-    @GetMapping("/space/list/rating/{rating}")
-    public String spaceListRating(Model model, @PathVariable int rating, @LoginUser SessionUser user) {
+    @GetMapping("/space/list/rating/{rating}/{pageNum}")
+    public String spaceListRating(Model model, @PathVariable int rating, @PathVariable int pageNum, @LoginUser SessionUser user) {
         if(user != null) {
             model.addAttribute("user", user);
         }
         addSidebarAttribute(model);
-        model.addAttribute("products", productsService.findAllByRating((double)rating));
-        return "products/space_list";
+        model.addAttribute("products", productsService.getProductsListByRating(pageNum, (double)rating));
+        model.addAttribute("pageList", productsService.getPageListByRating(pageNum, (double)rating));
+        model.addAttribute("lastPageNum", productsService.getLastPageNumByRating((double)rating));
+        model.addAttribute("inputRating", rating);
+        return "products/space_list_rating";
     }
 
     private void addSidebarAttribute(Model model) {
@@ -144,11 +167,6 @@ public class IndexController {
         for(int i=0;i<17;i++) {
             model.addAttribute("city"+i, productsService.findEachNumByCity(cityList[i]));
         }
-        //category sidebar num
-//        String[] categoryList = {"악기", "녹음", "댄스", "뮤지컬", "쿠킹", "스터디"};
-//        for(int i=0;i<6;i++) {
-//            model.addAttribute("category"+i, productsService.findEachNumByCategory(categoryList[i]));
-//        }
         // price sidebar num
         Integer[] priceList = {0, 10000, 35000, 70000, 100000};
         for(int i=0;i<5;i++) {
@@ -210,6 +228,10 @@ public class IndexController {
         }
         return "account/undo_enroll_seller";
     }
+
+
+    //////////////////////////////////////
+    // my page
 
     @GetMapping("/myPage/home")
     public String myPage_home(Model model, @LoginUser SessionUser user) {

@@ -15,7 +15,6 @@ public class ProductsSaveRequestDto {
     private String p_address;
     private String p_detailAddress;
     private String p_city;
-//    private String p_category;
     private int p_weekdayPrice;
     private int p_weekendPrice;
     private String p_introduce;
@@ -41,7 +40,6 @@ public class ProductsSaveRequestDto {
         this.p_address = p_address;
         this.p_detailAddress = p_detailAddress;
         this.p_city = p_city;
-//        this.p_category = p_category;
         this.p_weekdayPrice = p_weekdayPrice;
         this.p_weekendPrice = p_weekendPrice;
         this.p_introduce = p_introduce;
@@ -64,7 +62,6 @@ public class ProductsSaveRequestDto {
                 .p_address(p_address)
                 .p_detailAddress(p_detailAddress)
                 .p_city(p_city)
-//                .p_category(p_category)
                 .p_weekdayPrice(p_weekdayPrice)
                 .p_weekendPrice(p_weekendPrice)
                 .p_introduce(p_introduce)

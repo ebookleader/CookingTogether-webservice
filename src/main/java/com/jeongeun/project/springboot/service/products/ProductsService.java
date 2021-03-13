@@ -10,14 +10,15 @@ import com.jeongeun.project.springboot.web.dto.*;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang3.RandomStringUtils;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpSession;
-import java.awt.print.Pageable;
 import java.io.File;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
@@ -186,18 +187,42 @@ public class ProductsService {
                 .collect(Collectors.toList());
     }
 
-    public List<PageListResponseDto> getPageList(int currentPageNum) {
+    @Transactional(readOnly = true)
+    public List<ProductsListResponseDto> getProductsListByCity(int pageNum, String city) {
+        Pageable pageable = PageRequest.of(pageNum-1, PAGE_POST_COUNT, Sort.by(Sort.Direction.DESC, "createdDate"));
+        return productsRepository.findByProductsCity(city, pageable).stream()
+                .map(ProductsListResponseDto::new)
+                .collect(Collectors.toList());
+    }
+
+    @Transactional(readOnly = true)
+    public List<ProductsListResponseDto> getProductsListByPrice(int pageNum, int min, int max) {
+        Pageable pageable = PageRequest.of(pageNum-1, PAGE_POST_COUNT, Sort.by(Sort.Direction.DESC, "createdDate"));
+        return productsRepository.findByWeekdayPrice(min, max, pageable).stream()
+                .map(ProductsListResponseDto::new)
+                .collect(Collectors.toList());
+    }
+
+    @Transactional(readOnly = true)
+    public List<ProductsListResponseDto> getProductsListByRating(int pageNum, double rating) {
+        Pageable pageable = PageRequest.of(pageNum-1, PAGE_POST_COUNT, Sort.by(Sort.Direction.DESC, "createdDate"));
+        return productsRepository.findByProductsAvgRating(rating, rating+1.0, pageable).stream()
+                .map(ProductsListResponseDto::new)
+                .collect(Collectors.toList());
+    }
+
+    @Transactional(readOnly = true)
+    public List<ProductsListResponseDto> getProductsListByInput(int pageNum, String input) {
+        Pageable pageable = PageRequest.of(pageNum-1, PAGE_POST_COUNT, Sort.by(Sort.Direction.DESC, "createdDate"));
+        return productsRepository.findByProductsName(input, pageable).stream()
+                .map(ProductsListResponseDto::new)
+                .collect(Collectors.toList());
+    }
+
+    private List<PageListResponseDto> commonGetPageList(int currentPageNum, int lastPageNum) {
         List<PageListResponseDto> pageList = new ArrayList<>();
         int inputCurrentPageNum = currentPageNum;
-
-        // 총 페이지 기준 마지막 페이지 번호
-        int lastPageNum = this.getLastPageNum();
-
-        // 현재 페이지 기준 마지막 페이지 번호
         int blockLastPageNum = (lastPageNum>currentPageNum+BLOCK_PAGE_NUM) ? currentPageNum+BLOCK_PAGE_NUM : lastPageNum;
-
-        // 페이지 시작 번호
-
         currentPageNum = (currentPageNum<=3) ? 1: currentPageNum-2;
 
         // 번호 할당
@@ -211,15 +236,38 @@ public class ProductsService {
             else {
                 pageList.add(new PageListResponseDto(cur, false));
             }
-
         }
-
         return pageList;
     }
 
-    @Transactional
-    public Long getProductsCount() {
-        return productsRepository.count();
+    public List<PageListResponseDto> getPageList(int currentPageNum) {
+        int lastPageNum = this.getLastPageNum();
+        return this.commonGetPageList(currentPageNum, lastPageNum);
+    }
+
+    public List<PageListResponseDto> getPageListByInput(int currentPageNum, String input) {
+        int lastPageNum = this.getLastPageNumByInput(input);
+        return this.commonGetPageList(currentPageNum, lastPageNum);
+    }
+
+    public List<PageListResponseDto> getPageListByCity(int currentPageNum, String city) {
+        int lastPageNum = this.getLastPageNumByCity(city);
+        return this.commonGetPageList(currentPageNum, lastPageNum);
+    }
+
+    public List<PageListResponseDto> getPageListByPrice(int currentPageNum, int min, int max) {
+        int lastPageNum = this.getLastPageNumByPrice(min, max);
+        return this.commonGetPageList(currentPageNum, lastPageNum);
+    }
+
+    public List<PageListResponseDto> getPageListByPriceLast(int currentPageNum, int max) {
+        int lastPageNum = this.getLastPageNumByPriceLast(max);
+        return this.commonGetPageList(currentPageNum, lastPageNum);
+    }
+
+    public List<PageListResponseDto> getPageListByRating(int currentPageNum, double rating) {
+        int lastPageNum = this.getLastPageNumByRating(rating);
+        return this.commonGetPageList(currentPageNum, lastPageNum);
     }
 
     public int getLastPageNum() {
@@ -229,19 +277,45 @@ public class ProductsService {
         return (int)(Math.ceil(totalPostNum/PAGE_POST_COUNT));
     }
 
+    public int getLastPageNumByInput(String input) {
+        double totalPostNum = Double.valueOf(this.findEachNumByInput(input));
+        return (int)(Math.ceil(totalPostNum/PAGE_POST_COUNT));
+    }
+
+    public int getLastPageNumByCity(String city) {
+        double totalPostNum = Double.valueOf(this.findEachNumByCity(city));
+//        double totalPostNum = Double.valueOf(this.getProductsCountByCity(city));
+        return (int)(Math.ceil(totalPostNum/PAGE_POST_COUNT));
+    }
+
+    public int getLastPageNumByPrice(int min, int max) {
+        double totalPostNum = Double.valueOf(this.findEachNumByPrice(min, max));
+//        double totalPostNum = Double.valueOf(this.getProductsCountByPrice(min, max));
+        return (int)(Math.ceil(totalPostNum/PAGE_POST_COUNT));
+    }
+
+    public int getLastPageNumByPriceLast(int max) {
+        double totalPostNum = Double.valueOf(this.findEachNumByPriceMax(max));
+//        double totalPostNum = Double.valueOf(this.getProductsCountByPriceLast(max));
+        return (int)(Math.ceil(totalPostNum/PAGE_POST_COUNT));
+    }
+
+    public int getLastPageNumByRating(double rating) {
+        double totalPostNum = Double.valueOf(this.findEachNumByRating(rating));
+        return (int)(Math.ceil(totalPostNum/PAGE_POST_COUNT));
+    }
+
+    @Transactional
+    public Long getProductsCount() {
+        return productsRepository.count();
+    }
+
     @Transactional(readOnly = true)
     public List<ProductsListResponseDto> findAllByInput(String input) {
         return productsRepository.findAllByInput(input).stream()
                 .map(ProductsListResponseDto::new)
                 .collect(Collectors.toList());
     }
-
-//    @Transactional(readOnly = true)
-//    public List<ProductsListResponseDto> findAllByCategory(String category) {
-//        return productsRepository.findAllByCategory(category).stream()
-//                .map(ProductsListResponseDto::new)
-//                .collect(Collectors.toList());
-//    }
 
     @Transactional(readOnly = true)
     public List<ProductsListResponseDto> findAllByCity(String city) {
@@ -377,11 +451,6 @@ public class ProductsService {
         return productsRepository.findEachNumByCity(p_city);
     }
 
-//    @Transactional(readOnly = true)
-//    public int findEachNumByCategory(String p_category) {
-//        return productsRepository.findEachNumByCategory(p_category);
-//    }
-
     @Transactional(readOnly = true)
     public int findEachNumByPrice(int min, int max) {
         return productsRepository.findEachNumByPrice(min, max);
@@ -395,7 +464,11 @@ public class ProductsService {
     @Transactional(readOnly = true)
     public int findEachNumByRating(double p_avgRating) {
         return productsRepository.findEachNumByRating(p_avgRating, p_avgRating + 1.0);
+    }
 
+    @Transactional(readOnly = true)
+    public int findEachNumByInput(String input) {
+        return productsRepository.findEachNumByInput(input);
     }
 
     @Transactional(readOnly = true)
@@ -415,10 +488,10 @@ public class ProductsService {
         int usingTime = option.getUsingTime();
 
         if (findWeekOrWeekend(inputDate).equals("주말")) {
-            int weekendPrice = products.getP_weekendPrice();
+            int weekendPrice = products.getWeekendPrice();
             price = weekendPrice * usingTime;
         } else {
-            int weekPrice = products.getP_weekdayPrice();
+            int weekPrice = products.getWeekdayPrice();
             price = weekPrice * usingTime;
         }
         return price;

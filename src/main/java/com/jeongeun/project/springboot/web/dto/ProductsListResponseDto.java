@@ -13,9 +13,9 @@ public class ProductsListResponseDto {
 
     public ProductsListResponseDto(Products entity) {
         this.p_id = entity.getP_id();
-        this.p_avgRating = entity.getP_avgRating();
-        this.p_name = entity.getP_name();
-        this.p_weekdayPrice = entity.getP_weekdayPrice();
-        this.p_city = entity.getP_city();
+        this.p_avgRating = entity.getProductsAvgRating();
+        this.p_name = entity.getProductsName();
+        this.p_weekdayPrice = entity.getWeekdayPrice();
+        this.p_city = entity.getProductsCity();
     }
 }

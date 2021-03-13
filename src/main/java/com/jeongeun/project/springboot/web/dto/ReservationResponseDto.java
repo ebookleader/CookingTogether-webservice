@@ -28,7 +28,7 @@ public class ReservationResponseDto {
         this.numOfPeople = entity.getNumOfPeople();
         this.totalPrice = entity.getTotalPrice();
         this.pid = entity.getProducts().getP_id();
-        this.pname = entity.getProducts().getP_name();
+        this.pname = entity.getProducts().getProductsName();
         this.reservationStatus = entity.getReservationStatus();
         this.optionId = entity.getOptionId();
         this.userReservationName = entity.getUserReservationName();
