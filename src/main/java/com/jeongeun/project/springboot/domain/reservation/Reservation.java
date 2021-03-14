@@ -34,7 +34,7 @@ public class Reservation extends BaseTimeEntity {
     private int totalPrice;
 
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
+    @Column(nullable = false, name = "reservation_status")
     private ReservationStatus reservationStatus;
 
     @ManyToOne
