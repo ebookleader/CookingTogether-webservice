@@ -4,6 +4,7 @@ import com.jeongeun.project.springboot.domain.products.Products;
 import com.jeongeun.project.springboot.domain.products.ProductsRepository;
 import com.jeongeun.project.springboot.domain.reservation.Reservation;
 import com.jeongeun.project.springboot.domain.reservation.ReservationRepository;
+import com.jeongeun.project.springboot.domain.reservation.ReservationStatus;
 import com.jeongeun.project.springboot.domain.user.User;
 import com.jeongeun.project.springboot.domain.user.UserRepository;
 import com.jeongeun.project.springboot.web.dto.ProductsListResponseDto;
@@ -104,9 +105,8 @@ public class UserService {
         User user = userRepository.findByEmail(email).orElseThrow(
                 () -> new IllegalArgumentException("There is no user where email = "+email)
         );
-        List<Reservation> userReservationList = reservationRepository.findByUserId(user.getId());
 
-        return reservationRepository.findByUserId(user.getId()).stream()
+        return reservationRepository.findByUserId(user.getId(), ReservationStatus.FINISHED.getKey()).stream()
                 .map(ReservationResponseDto::new)
                 .collect(Collectors.toList());
     }
@@ -126,4 +126,33 @@ public class UserService {
         );
         return new ReservationResponseDto(r);
     }
+
+    @Transactional(readOnly = true)
+    public List<ReservationResponseDto> findUserPreviousReservation(String email) {
+        User user = userRepository.findByEmail(email).orElseThrow(
+                () -> new IllegalArgumentException("There is no user where email = "+email)
+        );
+
+        return reservationRepository.findPreviousByUserId(user.getId(), ReservationStatus.FINISHED.getKey()).stream()
+                .map(ReservationResponseDto::new)
+                .collect(Collectors.toList());
+    }
+
+    public List<ReservationListResponseDto> getUserPreviousReservationTableList(List<ReservationResponseDto> previousReservationList) {
+        List<ReservationListResponseDto> dto = new ArrayList<>();
+        for(int i=0;i<previousReservationList.size();i++) {
+            dto.add(new ReservationListResponseDto(previousReservationList.get(i)));
+        }
+        return dto;
+    }
+
+    @Transactional(readOnly = true)
+    public ReservationResponseDto findPreviousReservationById(Long rid) {
+        Reservation r = reservationRepository.findById(rid).orElseThrow(
+                () -> new IllegalArgumentException("There is no reservation where rid = "+rid)
+        );
+        return new ReservationResponseDto(r);
+    }
+
+
 }

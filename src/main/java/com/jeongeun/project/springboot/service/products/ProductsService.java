@@ -4,6 +4,7 @@ import com.jeongeun.project.springboot.config.auth.dto.SessionUser;
 import com.jeongeun.project.springboot.domain.products.*;
 import com.jeongeun.project.springboot.domain.reservation.Reservation;
 import com.jeongeun.project.springboot.domain.reservation.ReservationRepository;
+import com.jeongeun.project.springboot.domain.reservation.ReservationStatus;
 import com.jeongeun.project.springboot.domain.user.User;
 import com.jeongeun.project.springboot.domain.user.UserRepository;
 import com.jeongeun.project.springboot.web.dto.*;
@@ -599,11 +600,13 @@ public class ProductsService {
     }
 
     @Transactional
-    public Long cancelReservation(Long rid) {
+    public boolean cancelReservation(Long rid) {
+        boolean result = false;
         Reservation r = reservationRepository.findById(rid).orElseThrow(() -> new IllegalArgumentException("There is no reservation where rid="+rid));
-        reservationRepository.delete(r);
-        return rid;
+        if (r.getReservationStatus() == ReservationStatus.APPLIED){
+            reservationRepository.delete(r);
+            result = true;
+        }
+        return result;
     }
-
-
 }

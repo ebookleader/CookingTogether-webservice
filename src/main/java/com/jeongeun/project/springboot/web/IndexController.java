@@ -274,6 +274,29 @@ public class IndexController {
         return "account/mypage_ongoing_reservation";
     }
 
+    @GetMapping("/myPage/user/previousReservationList")
+    public String mypage_previous_reservation_title(Model model, @LoginUser SessionUser user) {
+        if(user != null) {
+            model.addAttribute("user", user);
+        }
+
+        String userEmail = user.getEmail();
+        List<ReservationResponseDto> userPreviousReservationList = userService.findUserPreviousReservation(userEmail);
+        model.addAttribute("previousReservedList", userService.getUserPreviousReservationTableList(userPreviousReservationList));
+        return "account/mypage_previous_reservation_list";
+    }
+
+    @GetMapping("/myPage/user/previousReservation/{rid}")
+    public String mypage_previous_reservation(Model model, @PathVariable Long rid, @LoginUser SessionUser user) {
+        if(user != null) {
+            model.addAttribute("user", user);
+        }
+
+        model.addAttribute("res", userService.findPreviousReservationById(rid));
+        model.addAttribute("option", productsService.findProductsOptionByRid(rid));
+        return "account/mypage_previous_reservation";
+    }
+
     @GetMapping("/space/list/detail/reservationOngoing/{month}/{day}/{year}/{p_id}/{po_id}/{reserveNum}")
     public String reservationOngoing(@PathVariable String month, @PathVariable String day, @PathVariable String year,
                                      @PathVariable Long p_id, @PathVariable Long po_id,

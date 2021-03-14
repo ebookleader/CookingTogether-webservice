@@ -477,15 +477,19 @@ var main = {
             url: '/api/v1/products/reservation/cancel/'+rid,
             dataType: 'json',
             contentType: 'application/json; charset=utf-8'
-        }).done(function() {
-            alert('예약이 취소되었습니다.');
-            window.location.href = '/myPage/user/ongoingReservationList';
+        }).done(function(result) {
+            if (result==true) {
+                alert('예약이 취소되었습니다.');
+                window.location.href = '/myPage/user/ongoingReservationList';
+            }
+            else {
+                alert('예약이 확정되어 예약을 취소할 수 없습니다. 고객센터로 문의 바랍니다.');
+                window.location.href = '/myPage/user/ongoingReservationList';
+            }
         }).fail(function(error){
             alert(JSON.stringify(error));
         });
-    }
-
-
+    },
 };
 
 main.init();

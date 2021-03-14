@@ -15,8 +15,11 @@ public interface ReservationRepository extends JpaRepository<Reservation, Long> 
     @Query("SELECT COUNT(*) FROM Reservation WHERE ryear=:ryear and rmonth=:rmonth and rday=:rday and optionId=:optionId")
     int findReservedCountByOptionId(@Param("ryear") int ryear, @Param("rmonth") int rmonth, @Param("rday") int rday, @Param("optionId")Long optionId);
 
-    @Query("SELECT r FROM Reservation r WHERE userId=:userId")
-    List<Reservation> findByUserId(@Param("userId") Long userId);
+    @Query("SELECT r FROM Reservation r WHERE userId=:userId and reservation_status!=:finished ")
+    List<Reservation> findByUserId(@Param("userId") Long userId, @Param("finished") String finished);
+
+    @Query("SELECT r FROM Reservation r WHERE userId=:userId and reservation_status=:finished ")
+    List<Reservation> findPreviousByUserId(@Param("userId") Long userId, @Param("finished") String finished);
 
     @Query("SELECT r FROM Reservation r WHERE ryear=:ryear and rmonth=:rmonth and rday=:rday")
     List<Reservation> findYesterdayReservationList(@Param("ryear") int ryear, @Param("rmonth") int rmonth, @Param("rday") int rday);

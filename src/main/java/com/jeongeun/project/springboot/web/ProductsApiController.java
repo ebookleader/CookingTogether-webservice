@@ -18,7 +18,6 @@ import java.util.List;
 public class ProductsApiController {
     private final ProductsService productsService;
 
-
     //save
     @PostMapping("/api/v1/products")
     public Long save(@RequestBody ProductsSaveRequestDto requestDto) {
@@ -64,7 +63,14 @@ public class ProductsApiController {
     }
 
     @DeleteMapping("/api/v1/products/reservation/cancel/{rid}")
-    public Long cancelReservation(@PathVariable Long rid) {
-        return productsService.cancelReservation(rid);
+    public String cancelReservation(@PathVariable Long rid) {
+        String result;
+        if (productsService.cancelReservation(rid)) {
+            result = "true";
+        }
+        else {
+            result = "false";
+        }
+        return result;
     }
 }
