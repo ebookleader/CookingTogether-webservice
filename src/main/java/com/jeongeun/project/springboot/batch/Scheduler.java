@@ -31,8 +31,8 @@ public class Scheduler {
 //        System.out.println("Current date is: "+ LocalDateTime.now());
 //    }
 
-//    @Scheduled(cron = "0 1 0 * * *") //매일 00시 1분마다
-    @Scheduled(fixedDelay = 3000)
+
+    @Scheduled(cron = "0 1 0 * * *") //매일 00시 1분마다
     public void setReservationStatusToFINISHED() {
         try{
             LocalDate date = LocalDate.now();
@@ -42,8 +42,9 @@ public class Scheduler {
             int yesterdayDay = yesterday.getDayOfMonth();
 
 //            List<Reservation> yesterdayList = reservationRepository.findYesterdayReservationList(yesterdayYear, yesterdayMonth, yesterdayDay);
-            int resultNum = reservationRepository.updateYesterdayReservationStatus(ReservationStatus.FINISHED.getKey().toUpperCase(), yesterdayYear, yesterdayMonth,
-                    yesterdayDay, ReservationStatus.CONFIRMED.getKey().toUpperCase());
+            int resultNum = reservationRepository.updateYesterdayReservationStatus(ReservationStatus.FINISHED.getKey(), yesterdayYear, yesterdayMonth,
+                    yesterdayDay, ReservationStatus.CONFIRMED.getKey());
+            System.out.println(">>>>>>>>>>>>> "+resultNum+"row updated");
         }
         catch (Exception e) {
             e.printStackTrace();

@@ -6,9 +6,9 @@ import lombok.RequiredArgsConstructor;
 @Getter
 @RequiredArgsConstructor
 public enum ReservationStatus {
-    APPLIED("Applied", "예약신청"),
-    CONFIRMED("Confirmed", "예약확정"),
-    FINISHED("Finished", "완료");
+    APPLIED("APPLIED", "예약신청"),
+    CONFIRMED("CONFIRMED", "예약확정"),
+    FINISHED("FINISHED", "완료");
 
     private final String key;
     private final String title;
