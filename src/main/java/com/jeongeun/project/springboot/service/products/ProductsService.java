@@ -39,6 +39,8 @@ public class ProductsService {
     private final ProductsOptionRepository productsOptionRepository;
     private final ReservationRepository reservationRepository;
     private final FilesRepository filesRepository;
+    private final BookMarkRepository bookMarkRepository;
+    private final ProductsReviewRepository reviewRepository;
     private static final int PAGE_POST_COUNT = 3; // 한 페이지에 존재하는 게시글 수
     private static final int BLOCK_PAGE_NUM = 5; // 한 블럭에 존재하는 페이지 수
 
@@ -609,4 +611,94 @@ public class ProductsService {
         }
         return result;
     }
+
+    @Transactional(readOnly = true)
+    public boolean isUserBookMarkedProducts(Long pid) {
+        String email = ((SessionUser) httpSession.getAttribute("user")).getEmail();
+        User user = userRepository.findByEmail(email).orElseThrow(
+                () -> new IllegalArgumentException("no user")
+        );
+        Long result = bookMarkRepository.findUserBookMarkedProducts(user.getId(), pid);
+        if (result>0) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
+    @Transactional
+    public Long saveBookMark(Long pid) {
+        String email = ((SessionUser) httpSession.getAttribute("user")).getEmail();
+        User user = userRepository.findByEmail(email).orElseThrow(
+                () -> new IllegalArgumentException("There is no user")
+        );
+        Long id = user.getId();
+
+        Products products = productsRepository.findById(pid).orElseThrow(
+                () -> new IllegalArgumentException("no product")
+        );
+
+        BookMark bookMark = new BookMarkRequestDto(id).toEntity();
+
+        bookMark.setProducts(products);
+
+        bookMarkRepository.save(bookMark);
+        return bookMark.getBmid();
+    }
+
+    @Transactional
+    public Long deleteBookMark(Long pid) {
+        String email = ((SessionUser) httpSession.getAttribute("user")).getEmail();
+        User user = userRepository.findByEmail(email).orElseThrow(
+                () -> new IllegalArgumentException("There is no user")
+        );
+
+        BookMark bookMark = bookMarkRepository.findBookMark(user.getId(), pid);
+        bookMarkRepository.delete(bookMark);
+        return pid;
+    }
+
+    @Transactional(readOnly = true)
+    public List<BookMarkResponseDto> findAllUserBookMark() {
+        String email = ((SessionUser) httpSession.getAttribute("user")).getEmail();
+        User user = userRepository.findByEmail(email).orElseThrow(
+                () -> new IllegalArgumentException("There is no user")
+        );
+        List<BookMark> bookMarkList = bookMarkRepository.findBookMarkByBmuid(user.getId());
+        List<BookMarkResponseDto> bookMarkResponseDtos = new ArrayList<>();
+        for(int i=0;i<bookMarkList.size();i++) {
+            BookMarkResponseDto dto = new BookMarkResponseDto((i+1),bookMarkList.get(i), productsRepository.getProductsName(bookMarkList.get(i).getProducts().getP_id()));
+            bookMarkResponseDtos.add(dto);
+        }
+
+        return bookMarkResponseDtos;
+    }
+
+
+    /* 리뷰 */
+
+    @Transactional
+    public Long saveProductsReview(ProductsReviewSaveRequestDto dto, Long rid) {
+        Long uid = this.getUserByEmail().getId();
+        Products products = productsRepository.findById(dto.getPid()).orElseThrow(
+                () -> new IllegalArgumentException("There is no product")
+        );
+        ProductsReview review =dto.toEntity(uid, rid);
+        review.setProducts(products);
+        reviewRepository.save(review);
+        return review.getReviewId();
+    }
+
+
+
+    @Transactional
+    public User getUserByEmail() {
+        String email = ((SessionUser) httpSession.getAttribute("user")).getEmail();
+        User user = userRepository.findByEmail(email).orElseThrow(
+                () -> new IllegalArgumentException("There is no user")
+        );
+        return user;
+    }
+
 }

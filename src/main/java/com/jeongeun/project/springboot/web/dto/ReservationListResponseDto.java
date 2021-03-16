@@ -15,9 +15,9 @@ public class ReservationListResponseDto {
     private int ryear;
     private int rmonth;
     private int rday;
-    private int count;
+    private boolean hasReview;
 
-    public ReservationListResponseDto(ReservationResponseDto reservation) {
+    public ReservationListResponseDto(ReservationResponseDto reservation, boolean hasReview) {
         this.pid = reservation.getPid();
         this.p_name = reservation.getPname();
         this.rid = reservation.getRid();
@@ -26,10 +26,7 @@ public class ReservationListResponseDto {
         this.ryear = reservation.getRyear();
         this.rmonth = reservation.getRmonth();
         this.rday = reservation.getRday();
-    }
-
-    public void setCount(int count) {
-        this.count = count;
+        this.hasReview = hasReview;
     }
 
 }

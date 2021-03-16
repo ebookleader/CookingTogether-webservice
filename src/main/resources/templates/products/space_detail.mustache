@@ -2,7 +2,12 @@
 <!-- space detail start -->
 <div class="content-area pb-5 pt-3">
     <div class="container mt-5 content-body">
-        <h3 class="pb-3">{{product.p_name}}</h3>
+                {{#bookMarked}}
+                    <h3 class="pb-3">{{product.p_name}} <a class="like" href="#" role="button" id="btn-delete-bookmark"><i class="fa fa-heart"></i></a></h3>
+                {{/bookMarked}}
+                {{^bookMarked}}
+                    <h3 class="pb-3">{{product.p_name}} <a class="like" href="#" role="button" id="btn-save-bookmark"><i class="fa fa-heart-o"></i></a></h3>
+                {{/bookMarked}}
         <a href="/space/update/{{product.p_id}}" role="button" class="btn btn-info mb-4">게시글 수정</a>
         <button type="button" class="btn btn-danger mb-4" id="btn-space-delete">게시글 삭제</button>
         <input type="hidden" id="p_id" value="{{product.p_id}}">
@@ -16,10 +21,10 @@
                     </ol>
                     <div class="carousel-inner">
                         <div class="carousel-item active">
-                            <img src="/img/uploadImg/recordroom.png" class="d-block w-100" alt="...">
+                            <img src="/img/recordroom3.png" class="d-block w-100" alt="...">
                         </div>
                         <div class="carousel-item">
-                            <img src="/img/uploadImg/recordroom.png" class="d-block w-100" alt="...">
+                            <img src="/img/recordroom3.png" class="d-block w-100" alt="...">
                         </div>
                         <div class="carousel-item">
                             <img src="/img/recordroom3.png" class="d-block w-100" alt="...">

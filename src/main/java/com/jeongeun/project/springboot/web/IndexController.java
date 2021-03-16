@@ -7,6 +7,7 @@ import com.jeongeun.project.springboot.config.auth.dto.SessionUser;
 import com.jeongeun.project.springboot.domain.reservation.Reservation;
 import com.jeongeun.project.springboot.service.products.ProductsService;
 import com.jeongeun.project.springboot.service.user.UserService;
+import com.jeongeun.project.springboot.web.dto.BookMarkResponseDto;
 import com.jeongeun.project.springboot.web.dto.ProductsListResponseDto;
 import com.jeongeun.project.springboot.web.dto.ProductsResponseDto;
 import com.jeongeun.project.springboot.web.dto.ReservationResponseDto;
@@ -195,7 +196,7 @@ public class IndexController {
         model.addAttribute("notice", productsService.findProductsNoticeById(p_id));
         model.addAttribute("policy", productsService.findProductsPolicyById(p_id));
         model.addAttribute("option", productsService.findAllProductsOptionById(p_id));
-
+        model.addAttribute("bookMarked", productsService.isUserBookMarkedProducts(p_id));
         return "products/space_detail";
     }
 
@@ -276,6 +277,7 @@ public class IndexController {
 
     @GetMapping("/myPage/user/previousReservationList")
     public String mypage_previous_reservation_title(Model model, @LoginUser SessionUser user) {
+        /* 완료된 예약 현황 테이블 조회 페이지로 이동 */
         if(user != null) {
             model.addAttribute("user", user);
         }
@@ -296,6 +298,29 @@ public class IndexController {
         model.addAttribute("option", productsService.findProductsOptionByRid(rid));
         return "account/mypage_previous_reservation";
     }
+
+    @GetMapping("/myPage/user/bookMarkList")
+    public String mypage_bookmarkList(Model model, @LoginUser SessionUser user) {
+        if(user != null) {
+            model.addAttribute("user", user);
+        }
+        List<BookMarkResponseDto> bookMarkList = productsService.findAllUserBookMark();
+        model.addAttribute("bookMarkList", bookMarkList);
+        return "account/mypage_bookmark_list";
+    }
+
+    @GetMapping("/mypage/user/writeReview/{rid}/{pid}")
+    public String myage_writeReview(Model model, @PathVariable Long rid, @PathVariable Long pid, @LoginUser SessionUser user) {
+        /* 리뷰 작성 페이지로 이동 */
+        if(user != null) {
+            model.addAttribute("user", user);
+        }
+        model.addAttribute("product", productsService.findById(pid));
+        model.addAttribute("rid", rid);
+        return "account/mypage_write_review";
+    }
+
+
 
     @GetMapping("/space/list/detail/reservationOngoing/{month}/{day}/{year}/{p_id}/{po_id}/{reserveNum}")
     public String reservationOngoing(@PathVariable String month, @PathVariable String day, @PathVariable String year,

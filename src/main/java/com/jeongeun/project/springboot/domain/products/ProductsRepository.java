@@ -44,6 +44,9 @@ public interface ProductsRepository extends JpaRepository<Products, Long> {
     @Query("SELECT p FROM Products p WHERE p_name LIKE CONCAT('%',:input,'%') ORDER BY p_id DESC")
     Page<Products> findByProductsName(@Param("input") String input, Pageable pageable);
 
+    @Query("SELECT productsName FROM Products p WHERE p_id=:p_id")
+    String getProductsName(@Param("p_id") Long p_id);
+
     Long countByProductsCity(String p_city);
 
     // sidebar

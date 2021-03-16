@@ -63,6 +63,18 @@ var main = {
 
         $('#btn-cancel-reservation').on('click', function() {
             _this.cancelReservation();
+        });
+
+        $('#btn-save-bookmark').on('click', function() {
+            _this.saveBookMark();
+        });
+
+        $('#btn-delete-bookmark').on('click', function() {
+            _this.deleteBookMark();
+        });
+
+        $('#btn-save-review').on('click', function() {
+            _this.saveReview();
         })
     },
 
@@ -487,6 +499,60 @@ var main = {
                 window.location.href = '/myPage/user/ongoingReservationList';
             }
         }).fail(function(error){
+            alert(JSON.stringify(error));
+        });
+    },
+
+    saveBookMark : function() {
+        var id = $('#p_id').val();
+        $.ajax({
+            type: 'POST',
+            url: '/api/v1/products/saveBookMark/'+id,
+            dataType: 'json',
+            contentType: 'application/json; charset=utf-8',
+            success: function() {
+                alert('즐겨찾기 등록이 완료되었습니다.');
+                window.location.href='/space/list/detail/'+id;
+            }
+        });
+    },
+
+    deleteBookMark : function() {
+        var id = $("#p_id").val();
+        $.ajax({
+            type: 'DELETE',
+            url: '/api/v1/products/deleteBookMark/'+id,
+            dataType: 'json',
+            contentType: 'application/json; charset=utf-8'
+        }).done(function() {
+            alert('즐겨찾기가 삭제되었습니다.');
+            window.location.href='/space/list/detail/'+id;
+        }).fail(function(error) {
+            alert(JSON.stringify(error));
+        });
+    },
+
+    saveReview : function() {
+        var pid = $("#p_id").val();
+        var rating = $(":input:radio[name=ratingRadios]:checked").val();
+        var content = $('#reviewTextArea').val();
+        var rid = $('#rid').val();
+        var data = {
+            pid: pid,
+            content: content,
+            rating: parseFloat(rating)
+        };
+
+        $.ajax({
+            type: 'POST',
+            url: '/api/v1/products/saveReview/'+rid,
+            dataType: 'json',
+            contentType: 'application/json; charset=utf-8',
+            data: JSON.stringify(data)
+        }).done(function() {
+            alert('리뷰가 등록되었습니다.');
+            window.location.href = '/space/list/detail/'+pid;
+        }).fail(function(error) {
             alert(JSON.stringify(error));
         });
     },

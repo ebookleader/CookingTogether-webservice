@@ -1,7 +1,9 @@
 package com.jeongeun.project.springboot.service.user;
 
+import com.jeongeun.project.springboot.config.auth.dto.SessionUser;
 import com.jeongeun.project.springboot.domain.products.Products;
 import com.jeongeun.project.springboot.domain.products.ProductsRepository;
+import com.jeongeun.project.springboot.domain.products.ProductsReviewRepository;
 import com.jeongeun.project.springboot.domain.reservation.Reservation;
 import com.jeongeun.project.springboot.domain.reservation.ReservationRepository;
 import com.jeongeun.project.springboot.domain.reservation.ReservationStatus;
@@ -18,6 +20,7 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -29,7 +32,9 @@ public class UserService {
     private final UserRepository userRepository;
     private final ProductsRepository productsRepository;
     private final ReservationRepository reservationRepository;
+    private final ProductsReviewRepository reviewRepository;
     private final JavaMailSender javaMailSender;
+    private final HttpSession httpSession;
 
     @Transactional
     public Long updateToSeller(String email) {
@@ -100,8 +105,13 @@ public class UserService {
         }
     }
 
+
+    /* my page - 예약 현황 */
+
     @Transactional(readOnly = true)
     public List<ReservationResponseDto> findUserReservation(String email) {
+        // 사용자의 예약 현황을 전체 조회
+        // reservation status가 finished가 아닌 모든 행을 가져옴
         User user = userRepository.findByEmail(email).orElseThrow(
                 () -> new IllegalArgumentException("There is no user where email = "+email)
         );
@@ -112,9 +122,11 @@ public class UserService {
     }
 
     public List<ReservationListResponseDto> getUserReservationTableList(List<ReservationResponseDto> reservationList) {
+        // 예약 현황 테이블 출력을 위한 정보만 가져와서 새로운 response dto 리턴
         List<ReservationListResponseDto> dto = new ArrayList<>();
         for(int i=0;i<reservationList.size();i++) {
-            dto.add(new ReservationListResponseDto(reservationList.get(i)));
+            // 예약이 진행중이므로 hasReview는 모두 false
+            dto.add(new ReservationListResponseDto(reservationList.get(i), false));
         }
         return dto;
     }
@@ -129,6 +141,7 @@ public class UserService {
 
     @Transactional(readOnly = true)
     public List<ReservationResponseDto> findUserPreviousReservation(String email) {
+        /* 사용자의 지난 예약 현황들 조회 */
         User user = userRepository.findByEmail(email).orElseThrow(
                 () -> new IllegalArgumentException("There is no user where email = "+email)
         );
@@ -139,9 +152,19 @@ public class UserService {
     }
 
     public List<ReservationListResponseDto> getUserPreviousReservationTableList(List<ReservationResponseDto> previousReservationList) {
+        /* 사용자의 지난 예약 현황들중 출력에 필요한 정보만 담아 리턴 */
         List<ReservationListResponseDto> dto = new ArrayList<>();
+
+        // 리뷰 작성 버튼 출력 여부 확인
         for(int i=0;i<previousReservationList.size();i++) {
-            dto.add(new ReservationListResponseDto(previousReservationList.get(i)));
+            if (reviewRepository.countByReservationId(previousReservationList.get(i).getRid())>0) {
+                // 해당 예약에 대해 리뷰를 이미 작성한경우
+                dto.add(new ReservationListResponseDto(previousReservationList.get(i), true));
+            }
+            else {
+                // 해당 예약에 대해 리뷰를 작성하지 않은 경우로 리뷰작성버튼 보여줌
+                dto.add(new ReservationListResponseDto(previousReservationList.get(i), false));
+            }
         }
         return dto;
     }
@@ -152,6 +175,16 @@ public class UserService {
                 () -> new IllegalArgumentException("There is no reservation where rid = "+rid)
         );
         return new ReservationResponseDto(r);
+    }
+
+
+    @Transactional
+    private User getUserByEmail() {
+        String email = ((SessionUser) httpSession.getAttribute("user")).getEmail();
+        User user = userRepository.findByEmail(email).orElseThrow(
+                () -> new IllegalArgumentException("There is no user")
+        );
+        return user;
     }
 
 

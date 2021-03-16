@@ -7,19 +7,24 @@
         <table class="table">
             <thead class="thead-dark">
             <tr>
-                <th scope="col">상태</th>
                 <th scope="col">상품명</th>
                 <th scope="col">예약 날짜</th>
                 <th scope="col">예약자 이름</th>
+                <th scope="col"> </th>
             </tr>
             </thead>
             <tbody>
             {{#previousReservedList}}
                 <tr>
-                    <th scope="row">{{status}}</th>
                     <td><a href="/myPage/user/previousReservation/{{rid}}" class="text-decoration-none font-weight-bold">{{p_name}}</a></td>
                     <td>{{ryear}}년 {{rmonth}}월 {{rday}}일</td>
                     <td>{{userReservationName}}</td>
+                    {{#hasReview}}
+                        <td><p class="font-weight-bold text-secondary">리뷰 작성 완료</p></td>
+                    {{/hasReview}}
+                    {{^hasReview}}
+                        <td><a href="/mypage/user/writeReview/{{rid}}/{{pid}}" role="button" class="btn btn-info" id="">리뷰 작성하기</a></td>
+                    {{/hasReview}}
                 </tr>
             {{/previousReservedList}}
             </tbody>

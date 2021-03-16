@@ -1,0 +1,25 @@
+{{>layout/header}}
+<div class="content-area pb-5 pt-3">
+    <div class="container mt-5 mb-5">
+        <p class="border border-dark rounded pl-4 pt-3 pb-3 font-weight-bold h3">
+            <a href="/myPage/home" class="pr-3"><i class="text-secondary font-weight-bold fa fa-chevron-left"></i></a>
+            즐겨찾기</p>
+        <table class="table">
+            <thead class="thead-dark">
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">상품명</th>
+            </tr>
+            </thead>
+            <tbody>
+            {{#bookMarkList}}
+                <tr>
+                    <th scope="row">{{idx}}</th>
+                    <td><a href="/space/list/detail/{{p_id}}" class="text-decoration-none font-weight-bold">{{p_name}}</a></td>
+                </tr>
+            {{/bookMarkList}}
+            </tbody>
+        </table>
+    </div>
+</div>
+{{>layout/footer}}
