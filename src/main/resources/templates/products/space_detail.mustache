@@ -223,25 +223,69 @@
             <h4 class="text-sidebar"><a name="review">후기</a></h4>
             <table class="w-100 mt-4">
                 <tbody>
-                <tr>
-                    <td class="review-image"><img src="/img/example.png" class="rounded-circle" alt="" width="70" height="70"></td>
-                    <td class="review-user"><h5>홍길동</h5><p>2020.10.17</p></td>
-                    <td class="text-right review-star"><i class="fa fa-star fa-lg" aria-hidden="true"></i><i class="fa fa-star fa-lg" aria-hidden="true"></i><i class="fa fa-star fa-lg" aria-hidden="true"></i><i class="fa fa-star fa-lg" aria-hidden="true"></i><i class="fa fa-star-o fa-lg" aria-hidden="true"></i></td>
-                </tr>
-                <tr>
-                    <td colspan="3" class="p-3">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</td>
-                </tr>
-                <tr>
-                    <td>&nbsp;</td>
-                </tr>
-                <tr>
-                    <td class="review-image"><img src="/img/example.png" class="rounded-circle" alt="" width="70" height="70"></td>
-                    <td class="review-user"><h5>홍길동</h5><p>2020.10.17</p></td>
-                    <td class="text-right review-star"><i class="fa fa-star fa-lg" aria-hidden="true"></i><i class="fa fa-star fa-lg" aria-hidden="true"></i><i class="fa fa-star fa-lg" aria-hidden="true"></i><i class="fa fa-star-o fa-lg" aria-hidden="true"></i><i class="fa fa-star-o fa-lg" aria-hidden="true"></i></td>
-                </tr>
-                <tr>
-                    <td colspan="3" class="p-3">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</td>
-                </tr>
+                {{#reviewList}}
+                    <tr>
+                        <td class="review-image"><img src="/img/example.png" class="rounded-circle" alt="" width="70" height="70"></td>
+                        <td class="review-user"><h5>{{userName}}</h5><p class="font-weight-bold text-secondary">{{year}}.{{month}}.{{day}}</p></td>
+                        <td class="text-right review-star">
+                            {{#rating1}}
+                                <i class="fa fa-star fa-lg" aria-hidden="true"></i>
+                            {{/rating1}}
+                            {{^rating1}}
+                                <i class="fa fa-star-o fa-lg" aria-hidden="true"></i>
+                            {{/rating1}}
+                            {{#rating2}}
+                                <i class="fa fa-star fa-lg" aria-hidden="true"></i>
+                            {{/rating2}}
+                            {{^rating2}}
+                                <i class="fa fa-star-o fa-lg" aria-hidden="true"></i>
+                            {{/rating2}}
+                            {{#rating3}}
+                                <i class="fa fa-star fa-lg" aria-hidden="true"></i>
+                            {{/rating3}}
+                            {{^rating3}}
+                                <i class="fa fa-star-o fa-lg" aria-hidden="true"></i>
+                            {{/rating3}}
+                            {{#rating4}}
+                                <i class="fa fa-star fa-lg" aria-hidden="true"></i>
+                            {{/rating4}}
+                            {{^rating4}}
+                                <i class="fa fa-star-o fa-lg" aria-hidden="true"></i>
+                            {{/rating4}}
+                            {{#rating5}}
+                                <i class="fa fa-star fa-lg" aria-hidden="true"></i>
+                            {{/rating5}}
+                            {{^rating5}}
+                                <i class="fa fa-star-o fa-lg" aria-hidden="true"></i>
+                            {{/rating5}}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="3" class="p-3">{{content}}</td>
+                    </tr>
+                    <tr>
+                        <td>&nbsp;</td>
+                    </tr>
+                {{/reviewList}}
+<!--                <tr>-->
+<!--                    <td class="review-image"><img src="/img/example.png" class="rounded-circle" alt="" width="70" height="70"></td>-->
+<!--                    <td class="review-user"><h5>홍길동</h5><p>2020.10.17</p></td>-->
+<!--                    <td class="text-right review-star"><i class="fa fa-star fa-lg" aria-hidden="true"></i><i class="fa fa-star fa-lg" aria-hidden="true"></i><i class="fa fa-star fa-lg" aria-hidden="true"></i><i class="fa fa-star fa-lg" aria-hidden="true"></i><i class="fa fa-star-o fa-lg" aria-hidden="true"></i></td>-->
+<!--                </tr>-->
+<!--                <tr>-->
+<!--                    <td colspan="3" class="p-3">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</td>-->
+<!--                </tr>-->
+<!--                <tr>-->
+<!--                    <td>&nbsp;</td>-->
+<!--                </tr>-->
+<!--                <tr>-->
+<!--                    <td class="review-image"><img src="/img/example.png" class="rounded-circle" alt="" width="70" height="70"></td>-->
+<!--                    <td class="review-user"><h5>홍길동</h5><p>2020.10.17</p></td>-->
+<!--                    <td class="text-right review-star"><i class="fa fa-star fa-lg" aria-hidden="true"></i><i class="fa fa-star fa-lg" aria-hidden="true"></i><i class="fa fa-star fa-lg" aria-hidden="true"></i><i class="fa fa-star-o fa-lg" aria-hidden="true"></i><i class="fa fa-star-o fa-lg" aria-hidden="true"></i></td>-->
+<!--                </tr>-->
+<!--                <tr>-->
+<!--                    <td colspan="3" class="p-3">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</td>-->
+<!--                </tr>-->
                 </tbody>
             </table>
         </div>

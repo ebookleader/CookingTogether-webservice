@@ -7,10 +7,7 @@ import com.jeongeun.project.springboot.config.auth.dto.SessionUser;
 import com.jeongeun.project.springboot.domain.reservation.Reservation;
 import com.jeongeun.project.springboot.service.products.ProductsService;
 import com.jeongeun.project.springboot.service.user.UserService;
-import com.jeongeun.project.springboot.web.dto.BookMarkResponseDto;
-import com.jeongeun.project.springboot.web.dto.ProductsListResponseDto;
-import com.jeongeun.project.springboot.web.dto.ProductsResponseDto;
-import com.jeongeun.project.springboot.web.dto.ReservationResponseDto;
+import com.jeongeun.project.springboot.web.dto.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.java.Log;
 import org.springframework.stereotype.Controller;
@@ -21,7 +18,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RequiredArgsConstructor
 @Controller
@@ -197,6 +196,7 @@ public class IndexController {
         model.addAttribute("policy", productsService.findProductsPolicyById(p_id));
         model.addAttribute("option", productsService.findAllProductsOptionById(p_id));
         model.addAttribute("bookMarked", productsService.isUserBookMarkedProducts(p_id));
+        model.addAttribute("reviewList", productsService.findAllProductsReview(p_id));
         return "products/space_detail";
     }
 

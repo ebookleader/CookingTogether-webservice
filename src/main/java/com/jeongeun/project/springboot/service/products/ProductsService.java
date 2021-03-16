@@ -23,6 +23,7 @@ import javax.servlet.http.HttpSession;
 import java.io.File;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -673,6 +674,43 @@ public class ProductsService {
         }
 
         return bookMarkResponseDtos;
+    }
+
+    @Transactional(readOnly = true)
+    public List<ProductsReviewResponseDto> findAllProductsReview(Long p_id) {
+        /* 해당 상품의 리뷰들을 전부 가져옴 */
+
+        List<ProductsReview> productsReviewList = reviewRepository.findProductsReviewByPid(p_id);
+
+        List<ProductsReviewResponseDto> productsReviewResponseDtos = new ArrayList<>();
+
+        for(int i=0;i<productsReviewList.size();i++) {
+            ProductsReview productsReview = productsReviewList.get(i);
+
+            String userName = userRepository.findUserNameById(productsReview.getUserId());
+
+            LocalDateTime dateTime = productsReview.getModifiedDate();
+            int year = dateTime.getYear();
+            int month = dateTime.getMonthValue();
+            int day = dateTime.getDayOfMonth();
+
+            String content = productsReview.getContent();
+
+            int rating = (int)productsReview.getRating();
+            List<Boolean> ratingArray = new ArrayList<>(5);
+            for(int j=0;j<5;j++) {
+                if(j<rating) {
+                    ratingArray.add(true);
+                }
+                else {
+                    ratingArray.add(false);
+                }
+            }
+
+            productsReviewResponseDtos.add(new ProductsReviewResponseDto(userName, year, month, day, ratingArray, content));
+        }
+
+        return productsReviewResponseDtos;
     }
 
 
