@@ -12,10 +12,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.java.Log;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.view.RedirectView;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -197,6 +195,7 @@ public class IndexController {
         model.addAttribute("option", productsService.findAllProductsOptionById(p_id));
         model.addAttribute("bookMarked", productsService.isUserBookMarkedProducts(p_id));
         model.addAttribute("reviewList", productsService.findAllProductsReview(p_id));
+        model.addAttribute("qaList", productsService.findAllProductsQA(p_id));
         return "products/space_detail";
     }
 
@@ -207,6 +206,17 @@ public class IndexController {
         }
         model.addAttribute("product", productsService.findById(p_id));
         return "products/space_update";
+    }
+
+    @PostMapping("/space/detail/saveReply/{qaId}")
+    public RedirectView spaceSaveReply(@RequestParam String replyTextArea, @PathVariable Long qaId, Model model, @LoginUser SessionUser user) {
+        if(user != null) {
+            model.addAttribute("user", user);
+        }
+        System.out.println("replyTextArea: "+replyTextArea);
+        Long pid = productsService.saveProductsQAReply(qaId, replyTextArea);
+
+        return new RedirectView("/space/list/detail/"+pid);
     }
 
     @GetMapping("/basicUser/login")

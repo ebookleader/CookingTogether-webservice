@@ -1,10 +1,7 @@
 package com.jeongeun.project.springboot.web;
 
 import com.jeongeun.project.springboot.service.products.ProductsService;
-import com.jeongeun.project.springboot.web.dto.ProductsReviewSaveRequestDto;
-import com.jeongeun.project.springboot.web.dto.ProductsSaveRequestDto;
-import com.jeongeun.project.springboot.web.dto.ProductsUpdateRequestDto;
-import com.jeongeun.project.springboot.web.dto.ReservationSaveRequestDto;
+import com.jeongeun.project.springboot.web.dto.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -93,6 +90,15 @@ public class ProductsApiController {
 
     @PostMapping("/api/v1/products/saveReview/{rid}")
     public Long saveReview(@RequestBody ProductsReviewSaveRequestDto requestDto, @PathVariable Long rid) {
+        /* 리뷰 등록 */
         return productsService.saveProductsReview(requestDto, rid);
+    }
+
+    /* Q&A */
+
+    @PostMapping("/api/v1/products/saveQA")
+    public Long saveQA(@RequestBody ProductsQASaveRequestDto requestDto) {
+        /* 상품 페이지에서 Q&A 등록 */
+        return productsService.saveProductsQA(requestDto);
     }
 }

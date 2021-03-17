@@ -26,6 +26,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
@@ -42,6 +43,7 @@ public class ProductsService {
     private final FilesRepository filesRepository;
     private final BookMarkRepository bookMarkRepository;
     private final ProductsReviewRepository reviewRepository;
+    private final ProductsQARepository qaRepository;
     private static final int PAGE_POST_COUNT = 3; // 한 페이지에 존재하는 게시글 수
     private static final int BLOCK_PAGE_NUM = 5; // 한 블럭에 존재하는 페이지 수
 
@@ -678,6 +680,7 @@ public class ProductsService {
 
     @Transactional(readOnly = true)
     public List<ProductsReviewResponseDto> findAllProductsReview(Long p_id) {
+
         /* 해당 상품의 리뷰들을 전부 가져옴 */
 
         List<ProductsReview> productsReviewList = reviewRepository.findProductsReviewByPid(p_id);
@@ -718,6 +721,9 @@ public class ProductsService {
 
     @Transactional
     public Long saveProductsReview(ProductsReviewSaveRequestDto dto, Long rid) {
+
+        /* my page 지난 예약 리스트에서 예약 finished 건의 상품에대한 리뷰 작성후 저장 */
+
         Long uid = this.getUserByEmail().getId();
         Products products = productsRepository.findById(dto.getPid()).orElseThrow(
                 () -> new IllegalArgumentException("There is no product")
@@ -728,10 +734,116 @@ public class ProductsService {
         return review.getReviewId();
     }
 
+    /* Q&A */
+
+    @Transactional
+    public Long saveProductsQA(ProductsQASaveRequestDto dto) {
+
+        /* 상품 detail page 에서 해당 상품에 대한 Q&A 작성후(원글에 해당) 저장 */
+
+        Long uid = this.getUserByEmail().getId();
+        Products products = productsRepository.findById(dto.getPid()).orElseThrow(
+                () -> new IllegalArgumentException("There is no product")
+        );
+
+        // 원글일때 설정되는 값
+        int originNo;
+        int groupOrder = 0;
+        int groupLayer = 0;
+
+        ProductsQA productsQA = dto.toEntity(uid, groupOrder, groupLayer);
+        productsQA.setProducts(products);
+
+        ProductsQA savedQA = qaRepository.saveAndFlush(productsQA);
+        Long qaId = savedQA.getQaId();
+
+        qaRepository.updateOriginNo(qaId);
+
+        return productsQA.getQaId();
+    }
+
+    @Transactional(readOnly = true)
+    public List<ProductsQAResponseDto> findAllProductsQA(Long pid) {
+
+        /* 해당 상품에 대한 모든 qa 데이터를 가져옴 */
+        /* 각 질문에 대한 답변도 같이 가져옴 */
+
+        List<ProductsQA> originProductsQAList = qaRepository.findOriginProductsQA(pid,0);
+        List<ProductsQAResponseDto> responseDtoList = new ArrayList<>();
+
+        for(int i=0;i<originProductsQAList.size();i++) {
+            ProductsQA qa = originProductsQAList.get(i);
+
+            // 원글 데이터
+            String userName = userRepository.findUserNameById(qa.getUserId());
+            LocalDateTime dateTime = qa.getModifiedDate();
+            int year = dateTime.getYear();
+            int month = dateTime.getMonthValue();
+            int day = dateTime.getDayOfMonth();
+            boolean isSecret = false;
+            if(qa.getIsSecret()==1) {
+                isSecret = true;
+            }
+
+            // 원글에대한 답변 데이터
+            Long originNo = qa.getOriginNo();
+            boolean hasReply = false;
+            String replyContent = "";
+            int replyYear = 0;
+            int replyMonth = 0;
+            int replyDay = 0;
+
+            ProductsQA replyQa = qaRepository.getReplyProductsQA(pid, 1, originNo);
+            if (replyQa == null) {
+            }
+            else {
+                hasReply = true;
+                replyContent = replyQa.getContent();
+                LocalDateTime replyDateTime = replyQa.getModifiedDate();
+                replyYear = replyDateTime.getYear();
+                replyMonth = replyDateTime.getMonthValue();
+                replyDay = replyDateTime.getDayOfMonth();
+            }
+
+            responseDtoList.add(new ProductsQAResponseDto(userName, year, month, day, isSecret, qa,
+                    hasReply, replyContent, replyYear, replyMonth, replyDay));
+        }
+
+        return responseDtoList;
+    }
+
+    @Transactional
+    public Long saveProductsQAReply(Long qaId, String content) {
+        Long uid = this.getUserByEmail().getId();
+        ProductsQA qa = qaRepository.findProductsQaById(qaId);
+
+        Long pid = qa.getProducts().getP_id();
+
+        Long originNo = qa.getOriginNo();
+        int originGroupOrder = qa.getGroupOrder();
+        int originGroupLayer = qa.getGroupLayer();
+        int originIsSecret = qa.getIsSecret();
+
+        ProductsQA reply = ProductsQA.builder()
+                .userId(uid)
+                .content(content)
+                .groupOrder(originGroupOrder+1)
+                .groupLayer(originGroupLayer+1)
+                .isSecret(originIsSecret)
+                .build();
+
+        reply.setProducts(qa.getProducts());
+        reply.setOriginNo(originNo);
+
+        qaRepository.save(reply);
+
+        return pid;
+    }
+
 
 
     @Transactional
-    public User getUserByEmail() {
+    private User getUserByEmail() {
         String email = ((SessionUser) httpSession.getAttribute("user")).getEmail();
         User user = userRepository.findByEmail(email).orElseThrow(
                 () -> new IllegalArgumentException("There is no user")

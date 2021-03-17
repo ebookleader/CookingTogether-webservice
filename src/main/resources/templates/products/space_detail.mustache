@@ -165,58 +165,76 @@
             </ol>
             <hr>
             <h4 class="text-sidebar"><a name="qa">Q & A</a></h4>
+            <form class="pb-5">
+                <div class="form-group">
+                    <label for="QATextArea"></label>
+                    <textarea class="form-control" id="QATextArea" rows="3" placeholder="질문을 입력하세요."></textarea>
+                </div>
+                <div class="row float-right mr-1">
+                    <div class="form-check mr-3">
+                        <input type="checkbox" class="form-check-input" id="isSecretQA">
+                        <label class="form-check-label" for="isSecretQA">비공개 질문</label>
+                    </div>
+                    <button type="button" class="btn btn-light ml-2" id="btn-save-QA">등록</button>
+                </div>
+            </form>
             <table class="w-100 mt-4">
                 <tbody>
                 <!-- 질문1 -->
-                <tr>
-                    <td class="review-image"><img src="/img/example.png" class="rounded-circle" alt="" width="70" height="70"></td>
-                    <td class="review-user"><h5>홍길동</h5><p>2020.10.17</p></td>
-                </tr>
-                <tr>
-                    <td colspan="3"><p class="question">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p></td>
-                </tr>
-                <tr>
-                    <td colspan="3">
-                        <p class="answer">
-                            <a data-toggle="collapse" href="#answerCollapse1" role="button" aria-expanded="false" aria-controls="answerCollapse1">
-                                답변
-                            </a>
-                        </p>
-                        <div class="collapse" id="answerCollapse1">
-                            <div class="card card-body answer-div">
-                                <p>2020.10.17</p>
-                                <p>
-                                    Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.
+                {{#qaList}}
+                    <tr>
+                        <td class="review-image"><img src="/img/example.png" class="rounded-circle" alt="" width="70" height="70"></td>
+                        <td class="review-user"><h5>{{userName}}</h5><p>{{year}}.{{month}}.{{day}}</p></td>
+                    </tr>
+                    <tr>
+                        {{#isSecret}}
+                            <td colspan="3"><p class="question">비공개 질문</p></td>
+                        {{/isSecret}}
+                        {{^isSecret}}
+                            <td colspan="3"><p class="question">{{content}}</p></td>
+                        {{/isSecret}}
+                    </tr>
+                    <tr>
+                        <td colspan="3">
+                            {{#hasReply}}
+                                <p class="answer">
+                                    <a data-toggle="collapse" href="#answerCollapse{{qaId}}" role="button" aria-expanded="false" aria-controls="answerCollapse2">
+                                        답변 보기
+                                    </a>
                                 </p>
-                            </div>
-                        </div>
-                    </td>
-                </tr>
-                <!-- 질문2 -->
-                <tr>
-                    <td>&nbsp;</td>
-                </tr>
-                <tr>
-                    <td class="review-image"><img src="/img/example.png" class="rounded-circle" alt="" width="70" height="70"></td>
-                    <td class="review-user"><h5>홍길동</h5><p>2020.10.17</p></td>
-                </tr>
-                <tr>
-                    <td colspan="3"><p class="question">비공개 질문</p></td>
-                </tr>
-                <tr>
-                    <td colspan="3">
-                        <p class="answer">
-                            <a data-toggle="collapse" href="#answerCollapse2" role="button" aria-expanded="false" aria-controls="answerCollapse2">
-                                답변
-                            </a>
-                        </p>
-                        <div class="collapse" id="answerCollapse2">
-                            <div class="card card-body answer-div">
-                                <p>비공개 답변</p>
-                            </div>
-                        </div>
-                    </td>
-                </tr>
+                                <div class="collapse mb-4" id="answerCollapse{{qaId}}">
+                                    <div class="card card-body answer-div">
+                                        <p>{{replyYear}}.{{replyMonth}}.{{replyDay}}</p>
+                                        {{#isSecret}}
+                                            <p>비공개 답변</p>
+                                        {{/isSecret}}
+                                        {{^isSecret}}
+                                            <p>{{replyContent}}</p>
+                                        {{/isSecret}}
+                                    </div>
+                                </div>
+                            {{/hasReply}}
+                            {{^hasReply}}
+                                <p class="answer">
+                                    <a data-toggle="collapse" href="#answerCollapse{{qaId}}" role="button" aria-expanded="false" aria-controls="answerCollapse1" class="collapsed text-warning">
+                                        답변 등록
+                                    </a>
+                                </p>
+                                <div class="collapse mb-4" id="answerCollapse{{qaId}}">
+                                    <div class="card card-body answer-div">
+                                        <form action="/space/detail/saveReply/{{qaId}}" method="post">
+                                            <div class="form-group">
+                                                <textarea class="form-control" id="replyTextArea" name="replyTextArea", rows="5" placeholder="답변을 등록하세요."></textarea>
+                                                <button type="submit" class="mt-3 btn btn-light float-right">등록</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            {{/hasReply}}
+
+                        </td>
+                    </tr>
+                {{/qaList}}
                 </tbody>
             </table>
             <hr>
@@ -226,7 +244,7 @@
                 {{#reviewList}}
                     <tr>
                         <td class="review-image"><img src="/img/example.png" class="rounded-circle" alt="" width="70" height="70"></td>
-                        <td class="review-user"><h5>{{userName}}</h5><p class="font-weight-bold text-secondary">{{year}}.{{month}}.{{day}}</p></td>
+                        <td class="review-user"><h5>{{userName}}</h5><p class="">{{year}}.{{month}}.{{day}}</p></td>
                         <td class="text-right review-star">
                             {{#rating1}}
                                 <i class="fa fa-star fa-lg" aria-hidden="true"></i>

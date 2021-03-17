@@ -75,6 +75,14 @@ var main = {
 
         $('#btn-save-review').on('click', function() {
             _this.saveReview();
+        });
+
+        $('#btn-save-QA').on('click', function() {
+            _this.saveQA();
+        });
+
+        $('#btn-save-reply').on('click', function() {
+            _this.saveReply();
         })
     },
 
@@ -556,6 +564,40 @@ var main = {
             alert(JSON.stringify(error));
         });
     },
+
+    saveQA : function() {
+        var content = $('#QATextArea').val();
+        var pid = $('#p_id').val();
+        var isSecret=0;
+        var chk = $("input:checkbox[id='isSecretQA']").is(":checked");
+        if(chk) {
+            isSecret = 1;
+        }
+
+        var data = {
+            pid: pid,
+            content: content,
+            isSecret: isSecret
+        };
+
+        $.ajax({
+            type: 'POST',
+            url: '/api/v1/products/saveQA',
+            dataType: 'json',
+            contentType: 'application/json; charset=utf-8',
+            data: JSON.stringify(data)
+        }).done(function() {
+            alert('Q&A가 등록되었습니다.');
+            window.location.href = '/space/list/detail/'+pid;
+        }).fail(function(error) {
+            alert(JSON.stringify(error));
+        });
+    },
+
+    saveReply : function() {
+        var content = $('replyTextArea').val();
+
+    }
 };
 
 main.init();
