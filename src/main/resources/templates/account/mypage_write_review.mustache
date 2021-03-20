@@ -1,60 +1,95 @@
 {{>layout/header}}
 <div class="content-area pb-5 pt-5">
     <div class="bg-info liked-list-start rounded">
-        <p>리뷰 작성</p>
+        {{#review}}
+            <p>리뷰 수정</p>
+        {{/review}}
+        {{^review}}
+            <p>리뷰 작성</p>
+        {{/review}}
     </div>
     <form>
-    <div class="container mt-5 pt-2 pb-5 bg-white rounded">
-        <div class="row justify-content-center reservation-list-div rounded">
-            <div class="reservation-img">
-                <p class="font-weight-bold h5 text-center pt-3 pb-1"><span><a href="#" class="text-dark">{{product.p_name}}</a></span></p>
-                <input type="hidden" value="{{product.p_id}}" id="p_id">
-                <input type="hidden" value="{{rid}}" id="rid">
-                <img src="/img/recordroom.png" width="350" height="220" class="mb-3">
+        <div class="container mt-5 pt-2 pb-5 bg-white rounded">
+            <div class="row justify-content-center reservation-list-div rounded">
+                <div class="reservation-img">
+                    <p class="font-weight-bold h5 text-center pt-3 pb-1"><span><a href="#"
+                                                                                  class="text-dark">{{product.p_name}}</a></span>
+                    </p>
+                    <input type="hidden" value="{{product.p_id}}" id="p_id">
+                    {{#rid}}
+                        <input type="hidden" value="{{rid}}" id="rid">
+                    {{/rid}}
+                    {{#reviewId}}
+                        <input type="hidden" value="{{reviewId}}" id="reviewId">
+                    {{/reviewId}}
+                    <img src="/img/recordroom.png" width="350" height="220" class="mb-3">
+                </div>
+
             </div>
 
-        </div>
             <div class="row reservation-list-div rounded">
                 <div class="col bg-white rounded rating-div">
                     <p class="rating-p">Your Rating</p>
                     <div class="form-check">
-                        <input class="form-check-input" type="radio" name="ratingRadios" id="fiveStar" value="5.0" checked>
+                        <input class="form-check-input" type="radio" name="ratingRadios" id="fiveStar" value="5.0">
                         <label class="form-check-label" for="fiveStar">
-                            <i class="fa fa-star fa-lg"></i><i class="fa fa-star fa-lg"></i><i class="fa fa-star fa-lg"></i><i class="fa fa-star fa-lg"></i><i class="fa fa-star fa-lg"></i>
+                            <i class="fa fa-star fa-lg"></i><i class="fa fa-star fa-lg"></i><i
+                                class="fa fa-star fa-lg"></i><i class="fa fa-star fa-lg"></i><i
+                                class="fa fa-star fa-lg"></i>
                         </label>
                     </div>
                     <div class="form-check mt-2">
                         <input class="form-check-input" type="radio" name="ratingRadios" id="fourStar" value="4.0">
                         <label class="form-check-label" for="fourStar">
-                            <i class="fa fa-star fa-lg"></i><i class="fa fa-star fa-lg"></i><i class="fa fa-star fa-lg"></i><i class="fa fa-star fa-lg"></i><i class="fa fa-star-o fa-lg"></i>
+                            <i class="fa fa-star fa-lg"></i><i class="fa fa-star fa-lg"></i><i
+                                class="fa fa-star fa-lg"></i><i class="fa fa-star fa-lg"></i><i
+                                class="fa fa-star-o fa-lg"></i>
                         </label>
                     </div>
                     <div class="form-check mt-2">
                         <input class="form-check-input" type="radio" name="ratingRadios" id="threeStar" value="3.0">
                         <label class="form-check-label" for="fiveStar">
-                            <i class="fa fa-star fa-lg"></i><i class="fa fa-star fa-lg"></i><i class="fa fa-star fa-lg"></i><i class="fa fa-star-o fa-lg"></i><i class="fa fa-star-o fa-lg"></i>
+                            <i class="fa fa-star fa-lg"></i><i class="fa fa-star fa-lg"></i><i
+                                class="fa fa-star fa-lg"></i><i class="fa fa-star-o fa-lg"></i><i
+                                class="fa fa-star-o fa-lg"></i>
                         </label>
                     </div>
                     <div class="form-check mt-2">
                         <input class="form-check-input" type="radio" name="ratingRadios" id="twoStar" value="2.0">
                         <label class="form-check-label" for="fiveStar">
-                            <i class="fa fa-star fa-lg"></i><i class="fa fa-star fa-lg"></i><i class="fa fa-star-o fa-lg"></i><i class="fa fa-star-o fa-lg"></i><i class="fa fa-star-o fa-lg"></i>
+                            <i class="fa fa-star fa-lg"></i><i class="fa fa-star fa-lg"></i><i
+                                class="fa fa-star-o fa-lg"></i><i class="fa fa-star-o fa-lg"></i><i
+                                class="fa fa-star-o fa-lg"></i>
                         </label>
                     </div>
                     <div class="form-check mt-2">
                         <input class="form-check-input" type="radio" name="ratingRadios" id="oneStar" value="1.0">
                         <label class="form-check-label" for="fiveStar">
-                            <i class="fa fa-star fa-lg"></i><i class="fa fa-star-o fa-lg"></i><i class="fa fa-star-o fa-lg"></i><i class="fa fa-star-o fa-lg"></i><i class="fa fa-star-o fa-lg"></i>
+                            <i class="fa fa-star fa-lg"></i><i class="fa fa-star-o fa-lg"></i><i
+                                class="fa fa-star-o fa-lg"></i><i class="fa fa-star-o fa-lg"></i><i
+                                class="fa fa-star-o fa-lg"></i>
                         </label>
                     </div>
                 </div>
-                <div class="col mr-5">
-                    <textarea class="reiewTextarea rounded" id="reviewTextArea" rows="6" cols="80" placeholder="Type your review" maxlength="500"></textarea>
-                    <button type="button" class="btn btn-dark" id="btn-save-review">등록</button>
-                    <a href="/myPage/user/previousReservationList" role="button" class="btn btn-secondary pl-4 pr-4">Cancel</a>
-                </div>
+                {{#review}}
+                    <div class="col mr-5">
+                    <textarea class="reiewTextarea rounded" id="reviewTextArea" rows="6" cols="80"
+                              placeholder="Type your review" maxlength="500">{{review.content}}</textarea>
+                        <button type="button" class="btn btn-dark" id="btn-update-review">수정 완료</button>
+                        <a href="/mypage/user/reviewList" role="button" class="btn btn-secondary pl-4 pr-4">Cancel</a>
+                    </div>
+                {{/review}}
+                {{^review}}
+                    <div class="col mr-5">
+                    <textarea class="reiewTextarea rounded" id="reviewTextArea" rows="6" cols="80"
+                              placeholder="Type your review" maxlength="500"></textarea>
+                        <button type="button" class="btn btn-dark" id="btn-save-review">등록</button>
+                        <a href="/myPage/user/previousReservationList" role="button"
+                           class="btn btn-secondary pl-4 pr-4">Cancel</a>
+                    </div>
+                {{/review}}
             </div>
-    </div>
+        </div>
     </form>
 </div>
 {{>layout/footer}}

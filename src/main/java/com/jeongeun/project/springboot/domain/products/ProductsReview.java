@@ -43,5 +43,10 @@ public class ProductsReview extends BaseTimeEntity {
         this.products = products;
     }
 
+    public void update(String content, double rating) {
+        this.content = content;
+        this.rating = rating;
+    }
+
 
 }

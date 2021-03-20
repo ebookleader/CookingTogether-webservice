@@ -94,6 +94,19 @@ public class ProductsApiController {
         return productsService.saveProductsReview(requestDto, rid);
     }
 
+    @PutMapping("/api/v1/products/updateReview/{rid}")
+    public Long updateReview(@PathVariable Long rid, @RequestBody ProductsReviewUpdateRequestDto dto) {
+        /* 리뷰 수정 */
+        return productsService.updateProductsReview(dto, rid);
+    }
+
+    @DeleteMapping("/api/v1/products/deleteReview/{rid}")
+    public Long deleteReview(@PathVariable Long rid) {
+        /* 리뷰 삭제 */
+        productsService.deleteProductsReview(rid);
+        return rid;
+    }
+
     /* Q&A */
 
     @PostMapping("/api/v1/products/saveQA")

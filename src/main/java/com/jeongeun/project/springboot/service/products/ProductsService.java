@@ -11,7 +11,6 @@ import com.jeongeun.project.springboot.web.dto.*;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang3.RandomStringUtils;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -26,7 +25,6 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
@@ -695,13 +693,6 @@ public class ProductsService {
 
             String userName = userRepository.findUserNameById(productsReview.getUserId());
 
-            LocalDateTime dateTime = productsReview.getModifiedDate();
-            int year = dateTime.getYear();
-            int month = dateTime.getMonthValue();
-            int day = dateTime.getDayOfMonth();
-
-            String content = productsReview.getContent();
-
             int rating = (int)productsReview.getRating();
             List<Boolean> ratingArray = new ArrayList<>(5);
             for(int j=0;j<5;j++) {
@@ -713,7 +704,7 @@ public class ProductsService {
                 }
             }
 
-            productsReviewResponseDtos.add(new ProductsReviewResponseDto(userName, year, month, day, ratingArray, content));
+            productsReviewResponseDtos.add(new ProductsReviewResponseDto(userName, productsReview, ratingArray));
         }
 
         return productsReviewResponseDtos;
@@ -733,6 +724,28 @@ public class ProductsService {
         reviewRepository.save(review);
         return review.getReviewId();
     }
+
+    @Transactional
+    public Long updateProductsReview(ProductsReviewUpdateRequestDto dto, Long rid) {
+
+        /* 리뷰 수정 페이지에서 수정 완료 버튼 클릭시 update 실행 */
+
+        ProductsReview review = reviewRepository.findProductsReviewByReviewId(rid);
+        review.update(dto.getContent(), dto.getRating());
+
+        return rid;
+    }
+
+    @Transactional
+    public void deleteProductsReview(Long rid) {
+
+        /* 리뷰 삭제 확인 페이지에서 삭제 버튼 클릭시 delete 실행 */
+
+        ProductsReview review = reviewRepository.findProductsReviewByReviewId(rid);
+        reviewRepository.delete(review);
+    }
+
+
 
     /* Q&A */
 

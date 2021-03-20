@@ -1,0 +1,68 @@
+{{>layout/header}}
+<div class="content-area pb-5 pt-5">
+    <div class="bg-info liked-list-start rounded">
+        <p>리뷰 삭제</p>
+    </div>
+    <div class="container mt-5 pt-2 pb-5 bg-white rounded">
+        <div class="rounded my-review-table mt-5">
+            <table class="">
+                <tbody>
+                <tr>
+                    <td class="review-image"><img src="/img/example.png" class="rounded-circle" alt="" width="70" height="70"></td>
+                    <td class="review-user"><h5>{{review.userName}}</h5><p>{{review.year}}.{{review.month}}.{{review.day}}</p></td>
+                    <input type="hidden" value="{{rid}}" id="rid">
+                    <td class="text-right review-star">
+                        {{#review.rating1}}
+                            <i class="fa fa-star fa-lg" aria-hidden="true"></i>
+                        {{/review.rating1}}
+                        {{^review.rating1}}
+                            <i class="fa fa-star-o fa-lg" aria-hidden="true"></i>
+                        {{/review.rating1}}
+                        {{#review.rating2}}
+                            <i class="fa fa-star fa-lg" aria-hidden="true"></i>
+                        {{/review.rating2}}
+                        {{^review.rating2}}
+                            <i class="fa fa-star-o fa-lg" aria-hidden="true"></i>
+                        {{/review.rating2}}
+                        {{#review.rating3}}
+                            <i class="fa fa-star fa-lg" aria-hidden="true"></i>
+                        {{/review.rating3}}
+                        {{^review.rating3}}
+                            <i class="fa fa-star-o fa-lg" aria-hidden="true"></i>
+                        {{/review.rating3}}
+                        {{#review.rating4}}
+                            <i class="fa fa-star fa-lg" aria-hidden="true"></i>
+                        {{/review.rating4}}
+                        {{^review.rating4}}
+                            <i class="fa fa-star-o fa-lg" aria-hidden="true"></i>
+                        {{/review.rating4}}
+                        {{#review.rating5}}
+                            <i class="fa fa-star fa-lg" aria-hidden="true"></i>
+                        {{/review.rating5}}
+                        {{^review.rating5}}
+                            <i class="fa fa-star-o fa-lg" aria-hidden="true"></i>
+                        {{/review.rating5}}
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="3"><p class="question">{{review.content}}</p></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="reservation-list-div rounded mb-3">
+            <p class="font-weight-bold text-center mt-4 mb-4">후기 삭제시 복구할 수 없습니다.아래 비밀번호 입력후 삭제가 완료됩니다.</p>
+            <p class="font-weight-bold text-center mt-4 mb-4">삭제를 원하시면 <span class="text-danger font-weight-bold text-center">"삭제 동의"</span> 를 입력해주세요</p>
+            <form class="reviewDeleteForm form-inline">
+                <div class="form-group">
+                    <input type="text" class="form-control" placeholder="" id="deleteVerificationString">
+                </div>
+                <div class="form-group">
+                    <button type="button" class="btn btn-primary ml-3" id="btn-delete-review">Submit</button>
+                    <a href="/mypage/user/reviewList" role="button" class="btn btn-secondary ml-2">Cancel</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{{>layout/footer}}

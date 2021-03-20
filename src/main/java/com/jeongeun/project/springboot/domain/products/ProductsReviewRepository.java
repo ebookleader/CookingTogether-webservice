@@ -15,6 +15,8 @@ public interface ProductsReviewRepository extends JpaRepository<ProductsReview, 
     @Query("SELECT COUNT(*) FROM ProductsReview pr WHERE reservationId=:reservationId")
     Long countByReservationId(@Param("reservationId") Long reservationId);
 
+    ProductsReview findProductsReviewByReviewId(Long reviewId);
+
     @Query("SELECT pr FROM ProductsReview pr WHERE p_id=:p_id ORDER BY reviewId DESC")
     List<ProductsReview> findProductsReviewByPid(@Param("p_id") Long p_id);
 

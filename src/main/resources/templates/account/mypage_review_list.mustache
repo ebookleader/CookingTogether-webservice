@@ -4,7 +4,6 @@
         <p>작성한 후기</p>
     </div>
     <div class="container mt-5 pt-2 pb-5 bg-white rounded">
-        <!-- 후기1개 -->
         {{#list}}
         <div class="row reservation-list-div rounded mb-3">
             <div class="col reservation-img">
@@ -14,8 +13,8 @@
                 <p><span class="text-primary mr-5">예약 장소</span><span><a href="#" class="text-dark">{{pname}}</a></span></p>
                 <p><span class="text-primary mr-5">예약 날짜</span><span>{{reserveYear}}년 {{reserveMonth}}월 {{reserveDay}}일</span></p>
                 <p><span class="text-primary mr-5">예약 시간</span><span>{{optionTitle}} ({{startTime}}:00-{{endTime}}:00)</span></p>
-                <a href="#" role="button" class="btn btn-primary pl-2 pr-2">수정</a>
-                <a href="#" role="button" class="btn btn-secondary pl-2 pr-2">삭제</a>
+                <a href="/mypage/user/updateReview/{{reviewId}}" role="button" class="btn btn-primary pl-2 pr-2">수정</a>
+                <a href="/mypage/user/deleteReview/{{reviewId}}" role="button" class="btn btn-secondary pl-2 pr-2">삭제</a>
             </div>
         </div>
         <div class="rounded my-review-table">
@@ -64,7 +63,6 @@
             </table>
         </div>
         {{/list}}
-        <!-- 후기1개 끝 -->
         <hr class="mt-5 mb-5">
     </div>
 </div>

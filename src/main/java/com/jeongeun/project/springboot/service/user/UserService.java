@@ -7,9 +7,7 @@ import com.jeongeun.project.springboot.domain.reservation.ReservationRepository;
 import com.jeongeun.project.springboot.domain.reservation.ReservationStatus;
 import com.jeongeun.project.springboot.domain.user.User;
 import com.jeongeun.project.springboot.domain.user.UserRepository;
-import com.jeongeun.project.springboot.web.dto.ReservationListResponseDto;
-import com.jeongeun.project.springboot.web.dto.ReservationResponseDto;
-import com.jeongeun.project.springboot.web.dto.UserReviewListResponseDto;
+import com.jeongeun.project.springboot.web.dto.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -206,6 +204,40 @@ public class UserService {
         }
 
         return dtos;
+    }
+
+    @Transactional(readOnly = true)
+    public ProductsListResponseDto findProductsByReviewId(Long reviewId) {
+
+        /* reviewId로 product를 가져옴 */
+
+        ProductsReview review = reviewRepository.findProductsReviewByReviewId(reviewId);
+        Products entity = productsRepository.findById(review.getProducts().getP_id()).orElseThrow(
+                () -> new IllegalArgumentException("There is no product")
+        );
+
+        return new ProductsListResponseDto(entity);
+    }
+
+    @Transactional(readOnly = true)
+    public ProductsReviewResponseDto findProductsReviewByReviewId(Long reviewId) {
+
+        /* 리뷰 수정을 위해 review id로 review 정보를 가져옴 */
+
+        User user = this.getUserByEmail();
+        ProductsReview review = reviewRepository.findProductsReviewByReviewId(reviewId);
+
+        int rating = (int)review.getRating();
+        List<Boolean> ratingArray = new ArrayList<>(5);
+        for(int j=0;j<5;j++) {
+            if(j<rating) {
+                ratingArray.add(true);
+            }
+            else {
+                ratingArray.add(false);
+            }
+        }
+        return new ProductsReviewResponseDto(user.getName(), review, ratingArray);
     }
 
 

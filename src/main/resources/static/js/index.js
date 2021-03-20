@@ -83,6 +83,14 @@ var main = {
 
         $('#btn-save-reply').on('click', function() {
             _this.saveReply();
+        });
+
+        $('#btn-update-review').on('click', function() {
+            _this.updateReview();
+        });
+
+        $('#btn-delete-review').on('click', function() {
+            _this.deleteReview();
         })
     },
 
@@ -565,6 +573,61 @@ var main = {
         });
     },
 
+    updateReview : function() {
+        var reviewId = $('#reviewId').val();
+
+        var chk_radio = document.getElementsByName("ratingRadios");
+        var rating = null;
+        for(var i=0;i<chk_radio.length;i++) {
+            if(chk_radio[i].checked==true) {
+                rating = chk_radio[i].value;
+            }
+        }
+
+        if(rating==null) {
+            alert('평점을 선택해주세요');
+            return false;
+        }
+
+        var data = {
+            content: $('#reviewTextArea').val(),
+            rating: parseFloat(rating)
+        };
+
+        $.ajax({
+            type: 'PUT',
+            url: '/api/v1/products/updateReview/'+reviewId,
+            dataType: 'json',
+            contentType: 'application/json; charset=utf-8',
+            data: JSON.stringify(data)
+        }).done(function() {
+            alert('리뷰가 수정되었습니다.');
+            window.location.href = '/mypage/user/reviewList';
+        }).fail(function(error) {
+            alert(JSON.stringify(error));
+        });
+    },
+
+    deleteReview : function() {
+        var deleteStr = $('#deleteVerificationString').val();
+        var rid = $('#rid').val();
+
+        if(deleteStr != "삭제 동의") {
+            alert('확인 문자가 일치하지 않습니다. 다시 입력해주세요');
+            return false;
+        }
+
+        $.ajax({
+            type: "DELETE",
+            url: '/api/v1/products/deleteReview/'+rid,
+        }).done(function() {
+            alert('리뷰 삭제가 완료되었습니다.');
+            window.location.href = '/mypage/user/reviewList';
+        }).fail(function(error) {
+            alert(JSON.stringify(error));
+        });
+    },
+
     saveQA : function() {
         var content = $('#QATextArea').val();
         var pid = $('#p_id').val();
@@ -594,10 +657,7 @@ var main = {
         });
     },
 
-    saveReply : function() {
-        var content = $('replyTextArea').val();
 
-    }
 };
 
 main.init();

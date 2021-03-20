@@ -357,7 +357,7 @@ public class IndexController {
         return "account/mypage_write_review";
     }
 
-    @GetMapping("/mypage/user/ReviewList")
+    @GetMapping("/mypage/user/reviewList")
     public String mypage_reviewList(Model model, @LoginUser SessionUser user) {
 
         /* mypage에서 리뷰관리 클릭시 이동, 내가 작성한 리뷰목록을 보여줌 */
@@ -366,9 +366,36 @@ public class IndexController {
             model.addAttribute("user", user);
         }
         model.addAttribute("list", userService.findAllUserReview());
-
         return "account/mypage_review_list";
 
+    }
+
+    @GetMapping("/mypage/user/updateReview/{reviewId}")
+    public String mypage_updateReview(Model model, @LoginUser SessionUser user, @PathVariable Long reviewId) {
+
+        /* mypage 리뷰관리 페이지에서 리뷰 수정 버튼 클릭시 수정 페이지로 이동 */
+
+        if(user != null) {
+            model.addAttribute("user", user);
+        }
+
+        model.addAttribute("product", userService.findProductsByReviewId(reviewId));
+        model.addAttribute("review", userService.findProductsReviewByReviewId(reviewId));
+        model.addAttribute("reviewId", reviewId);
+        return "account/mypage_write_review";
+    }
+
+    @GetMapping("/mypage/user/deleteReview/{reviewId}")
+    public String mypage_deleteReview(Model model, @LoginUser SessionUser user, @PathVariable Long reviewId) {
+
+        /* mypage 리뷰관리 페이지에서 리뷰 삭제 버튼 클릭시 삭제 확인 페이지로 이동 */
+
+        if(user != null) {
+            model.addAttribute("user", user);
+        }
+        model.addAttribute("review", userService.findProductsReviewByReviewId(reviewId));
+        model.addAttribute("rid", reviewId);
+        return "account/mypage_delete_review";
     }
 
 
