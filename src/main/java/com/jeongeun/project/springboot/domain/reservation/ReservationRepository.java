@@ -18,6 +18,8 @@ public interface ReservationRepository extends JpaRepository<Reservation, Long> 
     @Query("SELECT r FROM Reservation r WHERE userId=:userId and reservation_status!=:finished ")
     List<Reservation> findByUserId(@Param("userId") Long userId, @Param("finished") String finished);
 
+    Reservation findByRid(Long rid);
+
     @Query("SELECT r FROM Reservation r WHERE userId=:userId and reservation_status=:finished ")
     List<Reservation> findPreviousByUserId(@Param("userId") Long userId, @Param("finished") String finished);
 

@@ -17,4 +17,7 @@ public interface ProductsReviewRepository extends JpaRepository<ProductsReview, 
 
     @Query("SELECT pr FROM ProductsReview pr WHERE p_id=:p_id ORDER BY reviewId DESC")
     List<ProductsReview> findProductsReviewByPid(@Param("p_id") Long p_id);
+
+    @Query("SELECT pr FROM ProductsReview pr WHERE userId=:userId ORDER BY reviewId DESC")
+    List<ProductsReview> findProductsReviewByUserId(@Param("userId") Long userId);
 }

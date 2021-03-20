@@ -12,4 +12,7 @@ public interface ProductsOptionRepository extends JpaRepository<ProductsOption, 
 
     @Query("SELECT availableCount FROM ProductsOption WHERE po_id=:po_id")
     int findOptionAvailableCountByOptionId(@Param("po_id") Long po_id);
+
+    @Query("SELECT po FROM ProductsOption po WHERE po_id=:po_id")
+    ProductsOption findProductsOption(@Param("po_id") Long po_id);
 }

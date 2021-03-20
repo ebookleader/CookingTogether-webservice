@@ -240,9 +240,34 @@ public class IndexController {
         return "account/undo_enroll_seller";
     }
 
+    @GetMapping("/space/list/detail/reservationOngoing/{month}/{day}/{year}/{p_id}/{po_id}/{reserveNum}")
+    public String reservationOngoing(@PathVariable String month, @PathVariable String day, @PathVariable String year,
+                                     @PathVariable Long p_id, @PathVariable Long po_id,
+                                     @PathVariable int reserveNum, Model model, @LoginUser SessionUser user) {
+        if(user != null) {
+            model.addAttribute("user", user);
+        }
+        String inputDate = month+"/"+day+"/"+year;
+        int totalPrice = productsService.calculateProductPrice(p_id, inputDate, po_id);
+        int usingTime = productsService.findProductsOptionById(po_id).getUsingTime();
+        model.addAttribute("price", totalPrice/usingTime);
+        model.addAttribute("product", productsService.findById(p_id));
+        model.addAttribute("option", productsService.findProductsOptionById(po_id));
+        model.addAttribute("reserveNum", reserveNum);
+        model.addAttribute("year", year);
+        model.addAttribute("month", month);
+        model.addAttribute("day", day);
+        model.addAttribute("dayOfWeek", productsService.getDayInKorean(inputDate));
+        model.addAttribute("totalPrice", totalPrice);
+        model.addAttribute("weekValue", productsService.findWeekOrWeekend(inputDate));
 
-    //////////////////////////////////////
-    // my page
+        return "products/reservation_ongoing";
+    }
+
+
+
+    /* my page */
+
 
     @GetMapping("/myPage/home")
     public String myPage_home(Model model, @LoginUser SessionUser user) {
@@ -321,7 +346,9 @@ public class IndexController {
 
     @GetMapping("/mypage/user/writeReview/{rid}/{pid}")
     public String myage_writeReview(Model model, @PathVariable Long rid, @PathVariable Long pid, @LoginUser SessionUser user) {
-        /* 리뷰 작성 페이지로 이동 */
+
+        /* mypage 지난 예약 리스트에서 리뷰작성 버튼 클릭시 리뷰 작성 페이지로 이동 */
+
         if(user != null) {
             model.addAttribute("user", user);
         }
@@ -330,31 +357,23 @@ public class IndexController {
         return "account/mypage_write_review";
     }
 
+    @GetMapping("/mypage/user/ReviewList")
+    public String mypage_reviewList(Model model, @LoginUser SessionUser user) {
 
+        /* mypage에서 리뷰관리 클릭시 이동, 내가 작성한 리뷰목록을 보여줌 */
 
-    @GetMapping("/space/list/detail/reservationOngoing/{month}/{day}/{year}/{p_id}/{po_id}/{reserveNum}")
-    public String reservationOngoing(@PathVariable String month, @PathVariable String day, @PathVariable String year,
-                                     @PathVariable Long p_id, @PathVariable Long po_id,
-                                     @PathVariable int reserveNum, Model model, @LoginUser SessionUser user) {
         if(user != null) {
             model.addAttribute("user", user);
         }
-        String inputDate = month+"/"+day+"/"+year;
-        int totalPrice = productsService.calculateProductPrice(p_id, inputDate, po_id);
-        int usingTime = productsService.findProductsOptionById(po_id).getUsingTime();
-        model.addAttribute("price", totalPrice/usingTime);
-        model.addAttribute("product", productsService.findById(p_id));
-        model.addAttribute("option", productsService.findProductsOptionById(po_id));
-        model.addAttribute("reserveNum", reserveNum);
-        model.addAttribute("year", year);
-        model.addAttribute("month", month);
-        model.addAttribute("day", day);
-        model.addAttribute("dayOfWeek", productsService.getDayInKorean(inputDate));
-        model.addAttribute("totalPrice", totalPrice);
-        model.addAttribute("weekValue", productsService.findWeekOrWeekend(inputDate));
+        model.addAttribute("list", userService.findAllUserReview());
 
-        return "products/reservation_ongoing";
+        return "account/mypage_review_list";
+
     }
+
+
+
+
 
 }
 

@@ -678,6 +678,9 @@ public class ProductsService {
         return bookMarkResponseDtos;
     }
 
+
+    /* 리뷰 */
+
     @Transactional(readOnly = true)
     public List<ProductsReviewResponseDto> findAllProductsReview(Long p_id) {
 
@@ -715,9 +718,6 @@ public class ProductsService {
 
         return productsReviewResponseDtos;
     }
-
-
-    /* 리뷰 */
 
     @Transactional
     public Long saveProductsReview(ProductsReviewSaveRequestDto dto, Long rid) {

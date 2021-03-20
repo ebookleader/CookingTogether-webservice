@@ -1,20 +1,16 @@
 package com.jeongeun.project.springboot.service.user;
 
 import com.jeongeun.project.springboot.config.auth.dto.SessionUser;
-import com.jeongeun.project.springboot.domain.products.Products;
-import com.jeongeun.project.springboot.domain.products.ProductsRepository;
-import com.jeongeun.project.springboot.domain.products.ProductsReviewRepository;
+import com.jeongeun.project.springboot.domain.products.*;
 import com.jeongeun.project.springboot.domain.reservation.Reservation;
 import com.jeongeun.project.springboot.domain.reservation.ReservationRepository;
 import com.jeongeun.project.springboot.domain.reservation.ReservationStatus;
 import com.jeongeun.project.springboot.domain.user.User;
 import com.jeongeun.project.springboot.domain.user.UserRepository;
-import com.jeongeun.project.springboot.web.dto.ProductsListResponseDto;
 import com.jeongeun.project.springboot.web.dto.ReservationListResponseDto;
 import com.jeongeun.project.springboot.web.dto.ReservationResponseDto;
+import com.jeongeun.project.springboot.web.dto.UserReviewListResponseDto;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
@@ -33,6 +29,7 @@ public class UserService {
     private final ProductsRepository productsRepository;
     private final ReservationRepository reservationRepository;
     private final ProductsReviewRepository reviewRepository;
+    private final ProductsOptionRepository optionRepository;
     private final JavaMailSender javaMailSender;
     private final HttpSession httpSession;
 
@@ -175,6 +172,40 @@ public class UserService {
                 () -> new IllegalArgumentException("There is no reservation where rid = "+rid)
         );
         return new ReservationResponseDto(r);
+    }
+
+    @Transactional(readOnly = true)
+    public List<UserReviewListResponseDto> findAllUserReview() {
+
+        /* 마이페이지 리뷰관리에서 사용자가 작성한 모든 리뷰+리뷰를 작성한 해당 상품 예약건에 대한 정보를 가져옴 */
+
+        List<UserReviewListResponseDto> dtos = new ArrayList<>();
+
+        User user = this.getUserByEmail();
+        List<ProductsReview> reviewList = reviewRepository.findProductsReviewByUserId(user.getId());
+
+        for(int i=0;i<reviewList.size();i++) {
+
+            ProductsReview productsReview = reviewList.get(i);
+            String pname = productsRepository.getProductsName(productsReview.getProducts().getP_id());
+            Reservation reservation = reservationRepository.findByRid(productsReview.getReservationId());
+            ProductsOption option = optionRepository.findProductsOption(reservation.getOptionId());
+
+            List<Boolean> ratingArray = new ArrayList<>(5);
+            int rating = (int)productsReview.getRating();
+            for(int j=0;j<5;j++) {
+                if(j<rating) {
+                    ratingArray.add(true);
+                }
+                else {
+                    ratingArray.add(false);
+                }
+            }
+
+            dtos.add(new UserReviewListResponseDto(pname, reservation, option, user.getName(), productsReview, ratingArray));
+        }
+
+        return dtos;
     }
 
 

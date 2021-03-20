@@ -1,0 +1,71 @@
+{{>layout/header}}
+<div class="content-area pb-5 pt-5">
+    <div class="bg-info liked-list-start rounded">
+        <p>작성한 후기</p>
+    </div>
+    <div class="container mt-5 pt-2 pb-5 bg-white rounded">
+        <!-- 후기1개 -->
+        {{#list}}
+        <div class="row reservation-list-div rounded mb-3">
+            <div class="col reservation-img">
+                <img src="/img/recordroom.png" width="350" height="220" alt="">
+            </div>
+            <div class="col pt-4 reservation-info">
+                <p><span class="text-primary mr-5">예약 장소</span><span><a href="#" class="text-dark">{{pname}}</a></span></p>
+                <p><span class="text-primary mr-5">예약 날짜</span><span>{{reserveYear}}년 {{reserveMonth}}월 {{reserveDay}}일</span></p>
+                <p><span class="text-primary mr-5">예약 시간</span><span>{{optionTitle}} ({{startTime}}:00-{{endTime}}:00)</span></p>
+                <a href="#" role="button" class="btn btn-primary pl-2 pr-2">수정</a>
+                <a href="#" role="button" class="btn btn-secondary pl-2 pr-2">삭제</a>
+            </div>
+        </div>
+        <div class="rounded my-review-table">
+            <table class="w-100">
+                <tbody>
+                <tr>
+                    <td class="review-image"><img src="/img/example.png" class="rounded-circle" alt="" width="70" height="70"></td>
+                    <td class="review-user"><h5>{{userName}}</h5><p>{{reviewYear}}.{{reviewMonth}}.{{reviewDay}}</p></td>
+                    <td class="text-right review-star">
+                        {{#rating1}}
+                            <i class="fa fa-star fa-lg" aria-hidden="true"></i>
+                        {{/rating1}}
+                        {{^rating1}}
+                            <i class="fa fa-star-o fa-lg" aria-hidden="true"></i>
+                        {{/rating1}}
+                        {{#rating2}}
+                            <i class="fa fa-star fa-lg" aria-hidden="true"></i>
+                        {{/rating2}}
+                        {{^rating2}}
+                            <i class="fa fa-star-o fa-lg" aria-hidden="true"></i>
+                        {{/rating2}}
+                        {{#rating3}}
+                            <i class="fa fa-star fa-lg" aria-hidden="true"></i>
+                        {{/rating3}}
+                        {{^rating3}}
+                            <i class="fa fa-star-o fa-lg" aria-hidden="true"></i>
+                        {{/rating3}}
+                        {{#rating4}}
+                            <i class="fa fa-star fa-lg" aria-hidden="true"></i>
+                        {{/rating4}}
+                        {{^rating4}}
+                            <i class="fa fa-star-o fa-lg" aria-hidden="true"></i>
+                        {{/rating4}}
+                        {{#rating5}}
+                            <i class="fa fa-star fa-lg" aria-hidden="true"></i>
+                        {{/rating5}}
+                        {{^rating5}}
+                            <i class="fa fa-star-o fa-lg" aria-hidden="true"></i>
+                        {{/rating5}}
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="3" class="p-3">{{content}}</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        {{/list}}
+        <!-- 후기1개 끝 -->
+        <hr class="mt-5 mb-5">
+    </div>
+</div>
+{{>layout/footer}}
