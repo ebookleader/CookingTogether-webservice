@@ -1,0 +1,27 @@
+{{>layout/header}}
+<div class="content-area pb-5 pt-3">
+    <div class="container mt-5 mb-5">
+        <p class="bg-secondary rounded pl-5 pt-3 pb-3 font-weight-bold h4 text-light">회원 탈퇴</p>
+        <div class="mt-4">
+            <div class="bg-white rounded d-flex justify-content-center">
+                <form class="">
+                    <div class="form-group row beforePassword-div">
+                        <p class="border border-secondary rounded font-weight-bold p-5 mt-2 ml-5 mr-5 text-danger">
+                            계정 탈퇴시 기존 데이터는 모두 삭제되며 복구할 수 없습니다. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse lectus odio, cursus cursus ultrices sit amet, pharetra vitae sem. In iaculis imperdiet mattis. Cras volutpat est metus, sodales lobortis mi vulputate at. Nam et euismod magna, id elementum velit. Ut id bibendum nunc. Nulla iaculis vestibulum porta. Sed egestas ligula eu massa ultricies varius. Quisque gravida et lectus non tincidunt. Vestibulum ac nulla vitae quam rhoncus pretium. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum vulputate in nisi eu scelerisque. Aenean eu commodo felis. Nullam vitae sagittis nulla. Cras lacinia odio lacus, interdum porttitor sem fringilla ac. Nullam rutrum pretium ultricies.
+                        </p>
+                    </div>
+                    <div class="">
+                        <p class="font-weight-bold text-center mt-4 mb-4">삭제를 원하시면 <span class="text-danger font-weight-bold text-center">"회원 탈퇴 동의"</span> 를 입력한 후 계정 삭제를 눌러주세요</p>
+                        <div class="form-group ml-5 mr-5 pl-5 pr-5">
+                            <input type="text" class="form-control" id="deleteUserVerificationString" maxlength="20">
+                        </div>
+                    </div>
+                    <div class="row beforePasswordBtn-div pl-2 pt-3 justify-content-center">
+                        <button type="button" class="btn btn-danger mr-5 pl-5 pr-5 pt-2 pb-2" id="btn-delete-account">계정 삭제</button>
+                        <a href="/myPage/home" class="btn btn-secondary pl-5 pr-5 pt-2 pb-2" role="button">취소</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+{{>layout/footer}}

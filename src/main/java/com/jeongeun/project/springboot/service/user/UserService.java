@@ -240,6 +240,18 @@ public class UserService {
         return new ProductsReviewResponseDto(user.getName(), review, ratingArray);
     }
 
+    @Transactional
+    public Long deleteUserAccount() {
+
+        /* 회원탈퇴 */
+
+        User user = this.getUserByEmail();
+        Long userId = user.getId();
+        userRepository.delete(user);
+
+        return userId;
+    }
+
 
     @Transactional
     private User getUserByEmail() {

@@ -398,6 +398,17 @@ public class IndexController {
         return "account/mypage_delete_review";
     }
 
+    @GetMapping("/mypage/user/deleteAccount")
+    public String mypage_delete_account(Model model, @LoginUser SessionUser user) {
+
+        /* mypage 회원 탈퇴 클릭시 탈퇴 안내 페이지로 이동 */
+
+        if(user != null) {
+            model.addAttribute("user", user);
+        }
+        return "account/mypage_delete_account";
+    }
+
 
 
 

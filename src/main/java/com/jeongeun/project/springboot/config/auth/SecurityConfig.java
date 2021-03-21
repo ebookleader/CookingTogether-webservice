@@ -20,6 +20,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     .antMatchers("/", "/css/**", "/img/**", "/js/**", "/h2-console/**", "/basicUser/**", "/login").permitAll()
                     .antMatchers( "/api/guestUser/**").hasRole(Role.GUEST.name())
                     .antMatchers( "/space/list/**", "/api/user/**").access("hasRole('USER') or hasRole('SELLER')")
+                    .antMatchers("/api/allUser/deleteAccount").access("hasRole('GUEST') or hasRole('USER') or hasRole('SELLER')")
                     .antMatchers("/seller/**").hasRole(Role.USER.name())
                     .antMatchers("/api/v1/**", "/space/save/**", "/space/update/**", "/isSeller/**").hasRole(Role.SELLER.name())
                     .anyRequest().authenticated()

@@ -6,10 +6,7 @@ import com.jeongeun.project.springboot.domain.user.Role;
 import com.jeongeun.project.springboot.service.user.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.mail.javamail.JavaMailSender;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RequiredArgsConstructor
 @RestController
@@ -50,5 +47,10 @@ public class UserApiController {
     public boolean checkEmailCode(String inputKey, String userEmail) {
         boolean result = userService.checkEmailCode(inputKey, userEmail);
         return result;
+    }
+
+    @DeleteMapping("/api/allUser/deleteAccount")
+    public Long deleteAccount() {
+        return userService.deleteUserAccount();
     }
 }

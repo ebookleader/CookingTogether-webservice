@@ -45,6 +45,9 @@
                                     {{/emailVerified}}
                                 </a>
                                 <a class="dropdown-item" href="/logout" role="button">로그아웃</a>
+                                {{^emailVerified}}
+                                    <a class="dropdown-item" href="/mypage/user/deleteAccount" role="button">회원 탈퇴</a>
+                                {{/emailVerified}}
                             </div>
                         {{/user}}
                         {{^user}}

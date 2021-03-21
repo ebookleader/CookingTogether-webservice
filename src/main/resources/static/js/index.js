@@ -91,6 +91,10 @@ var main = {
 
         $('#btn-delete-review').on('click', function() {
             _this.deleteReview();
+        });
+
+        $('#btn-delete-account').on('click', function() {
+            _this.deleteAccount();
         })
     },
 
@@ -639,6 +643,26 @@ var main = {
         }).fail(function(error) {
             alert(JSON.stringify(error));
         });
+    },
+
+    deleteAccount : function() {
+        var chkString = $('#deleteUserVerificationString').val();
+
+        if(chkString != "회원 탈퇴 동의") {
+            alert('확인 문자가 일치하지 않습니다. 다시 입력해주세요.');
+            return false;
+        }
+
+        $.ajax({
+            type: "DELETE",
+            url: '/api/allUser/deleteAccount',
+        }).done(function() {
+            alert('회원 탈퇴가 완료되었습니다.');
+            window.location.href = '/logout';
+        }).fail(function(error) {
+            alert(JSON.stringify(error));
+        });
+
     },
 
 
