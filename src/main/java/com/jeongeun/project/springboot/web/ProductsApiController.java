@@ -16,6 +16,8 @@ import java.util.List;
 public class ProductsApiController {
     private final ProductsService productsService;
 
+    /* main page*/
+
     //save
     @PostMapping("/api/v1/products")
     public Long save(@RequestBody ProductsSaveRequestDto requestDto) {

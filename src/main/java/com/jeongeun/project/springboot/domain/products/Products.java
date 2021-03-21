@@ -86,6 +86,15 @@ public class Products extends BaseTimeEntity {
     @OnDelete(action = OnDeleteAction.CASCADE)
     private List<BookMark> bookMarks = new ArrayList<>();
 
+    @OneToMany(mappedBy = "products")
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    private List<ProductsQA> productsQAs = new ArrayList<>();
+
+    @OneToMany(mappedBy = "products")
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    private List<ProductsReview> productsReviews = new ArrayList<>();
+
+
 
 
     @Builder

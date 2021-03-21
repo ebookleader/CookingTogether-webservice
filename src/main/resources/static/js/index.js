@@ -478,24 +478,8 @@ var main = {
 
     mainPageSearch : function() {
         var location = $("#location-dropdown").text();
-//        var category = $("#category-dropdown").text();
-        alert(location);
-//        alert(category);
-//        $.ajax({
-//                type: 'GET',
-//                url: '/api/v1/products/checkReservationIsOk',
-//                data : { p_id:p_id, inputDate:inputDate, po_id:po_id },
-//                dataType :'json',
-//                success : function(result) {
-//                    if (result==true) {
-//                        alert('예약 가능합니다.');
-//                        window.location.href = "/space/list/detail/reservationOngoing/"+date[0]+"/"+date[1]+"/"+date[2]+"/"+p_id+"/"+po_id+"/"+reserveNum;
-//                    }
-//                    else {
-//                        alert('해당 날짜의 해당 옵션은 예약이 모두 찼습니다.\n다른 옵션을 선택해주세요.');
-//                    }
-//                }
-//         });
+
+        window.location.href = '/space/list/city/'+location+'/1';
     },
 
     cancelReservation : function() {
